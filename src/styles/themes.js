@@ -3,9 +3,14 @@ const common = {
     main: "atkinson-hl",
   },
   spacing: {
-    small: "0.25em",
-    medium: "0.5em",
-    large: "1em",
+    small: "0.5rem",
+    medium: "1rem",
+    large: "2rem",
+  },
+  text: {
+    primary: (base) => `${base}${toHexTransparency(87)}`,
+    secondary: (base) => `${base}${toHexTransparency(60)}`,
+    disabled: (base) => `${base}${toHexTransparency(38)}`,
   },
 };
 
@@ -38,13 +43,6 @@ const light = {
       surface: "#000000",
       error: "#ffffff",
     },
-    text: {
-      emphasis: {
-        high: (base) => `${base}${toHexTransparency(87)}`,
-        medium: (base) => `${base}${toHexTransparency(60)}`,
-        disabled: (base) => `${base}${toHexTransparency(38)}`,
-      },
-    },
   },
 };
 
@@ -63,10 +61,6 @@ const dark = {
       background: "#ffffff",
       surface: "#ffffff",
       error: "#000000",
-    },
-    disabled: {
-      container: `#ffffff${toHexTransparency(12)}`,
-      content: `#ffffff${toHexTransparency(38)}`,
     },
     states: {
       surface: {},
