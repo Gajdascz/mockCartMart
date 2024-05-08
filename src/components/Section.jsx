@@ -5,16 +5,23 @@ const SectionContainer = styled.section`
   border: 5px solid ${({ theme }) => theme.colors.surface[4]};
   border-radius: 10px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: ${({ $imgLeft }) => ($imgLeft ? "row" : "row-reverse")};
   flex-wrap: wrap;
+  min-width: fit-content;
+  > * {
+    flex: 1 1 auto;
+  }
 `;
 
 const ImageWrapper = styled.div`
   width: 100%;
+  display: flex;
   max-width: 250px;
   img {
     width: 100%;
-    height: 100%;
+    height: auto;
   }
 `;
 
@@ -24,7 +31,7 @@ const SectionContentContainer = styled.div`
   align-items: center;
   padding: ${({ theme }) => `${theme.spacing.small} 0`};
   gap: ${({ theme }) => `${theme.spacing.small}`};
-  width: 100%;
+  width: 50%;
 `;
 
 const actionStyle = css`
