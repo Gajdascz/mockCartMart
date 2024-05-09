@@ -7,8 +7,7 @@ const svgStyleBase = css`
 `;
 
 const SVG = styled.svg`
-  ${svgStyleBase}
-  ${({ $cssProp }) => $cssProp}
+  ${({ $cssProp }) => $cssProp ?? svgStyleBase}
 `;
 
 export default function Icon({

@@ -21,11 +21,10 @@ export default createGlobalStyle`
     --color-on-background: ${({ theme }) => theme.colors.on.background};
     --color-on-surface: ${({ theme }) => theme.colors.on.surface};
     --color-on-error: ${({ theme }) => theme.colors.on.error};
-
     --icon-width: 32px;
     --icon-height: 32px;
         
-    --border: ${({ theme }) => `3px solid ${theme.colors.border}`};
+    --border: ${({ theme }) => `2px solid ${theme.colors.border}`};
     --border-radius: 10px;
 
     --space-small: 0.5rem;

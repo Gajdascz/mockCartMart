@@ -1,40 +1,74 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Header = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   background-color: var(--surface-2-color);
   box-shadow: var(--surface-2-shadow);
   color: var(--color-primary);
-  padding: var(--space-medium);
 `;
 
-const Logo = styled.h1``;
+const AnnouncementsContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-on-surface);
+  border-bottom: var(--border);
+  border-top: var(--border);
+`;
+const Announcement = styled.p`
+  padding: var(--space-small);
+`;
 
-const LinksContainer = styled.nav``;
+const LogoIconsContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+`;
+const LogoText = styled.h1`
+  grid-row: 1;
+  grid-column: 1/-1;
+  text-align: center;
+`;
 
-const InteractiveIconsContainer = styled.div``;
+const IconsContainer = styled.div`
+  grid-row: 1;
+  grid-column: 2;
+  justify-self: end;
+  display: flex;
+`;
 
-const ShoppingCartWrapper = styled.div``;
+const LinksContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
 
 ShopHeader.propTypes = {
   children: PropTypes.node,
 };
 
-export default function ShopHeader({
-  logoText,
-  links,
-  interactiveIcons,
-  shoppingCart,
-}) {
+export default function ShopHeader({ announcements, logoText, links, icons }) {
   return (
-    <Header>
-      <Logo>{logoText}</Logo>
-      <LinksContainer> {links} </LinksContainer>
-      <InteractiveIconsContainer>{interactiveIcons}</InteractiveIconsContainer>
-      <ShoppingCartWrapper>{shoppingCart}</ShoppingCartWrapper>
-    </Header>
+    <HeaderContainer>
+      <AnnouncementsContainer>
+        {announcements?.map((announcement, index) => (
+          <Announcement key={index}>{announcement}</Announcement>
+        ))}
+      </AnnouncementsContainer>
+
+      <LogoIconsContainer>
+        <LogoText>{logoText}</LogoText>
+        <IconsContainer>{icons}</IconsContainer>
+      </LogoIconsContainer>
+
+      <LinksContainer>{links}</LinksContainer>
+    </HeaderContainer>
   );
 }

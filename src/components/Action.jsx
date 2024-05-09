@@ -1,24 +1,21 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const actionStyleBase = css`
+const actionStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-`;
-
-const actionStyle = css`
   padding: var(--space-small);
   border-radius: var(--border-radius);
   border: var(--border);
   background-color: var(--surface-3-color);
   box-shadow: var(--surface-3-shadow);
   color: var(--color-primary);
+  text-decoration: none;
 `;
 
 const BaseAction = styled.div`
-  ${actionStyleBase}
   ${({ $cssProp }) => $cssProp ?? actionStyle};
 `;
 const ActionButton = styled(BaseAction).attrs({ as: 'button' })``;
