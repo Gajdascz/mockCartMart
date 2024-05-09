@@ -7,11 +7,8 @@ import ShopHeader from './components/ShopHeader';
 import { useState } from 'react';
 import ShopFooter from './components/ShopFooter';
 import CartButton from './features/ShoppingCart/CartButton';
-import ItemCard from './components/ItemCard';
+import ItemCard from './components/ProductCard';
 import { Link, Outlet } from 'react-router-dom';
-import Icon from './components/Icon';
-import Button from './components/Button';
-import Action from './components/Action';
 
 import ThemeToggleButton from './features/ThemeToggle/ThemeToggle';
 import useProducts from './hooks/useProducts';
@@ -22,11 +19,12 @@ const Layout = styled.div`
   min-height: 100vh;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: auto;
+  padding: var(--space-large);
 `;
 
 export default function App() {
@@ -53,7 +51,9 @@ export default function App() {
           shoppingCart={<CartButton />}
           links={links}
         />
-        <ContentWrapper>{/* <Outlet /> */}</ContentWrapper>
+        <ContentWrapper>
+          <Outlet context={{ products }} />
+        </ContentWrapper>
 
         <ShopFooter />
       </Layout>
