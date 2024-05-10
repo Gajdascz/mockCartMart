@@ -17,6 +17,7 @@ const Layout = styled.div`
   display: grid;
   grid-template-rows: min-content 1fr min-content;
   min-height: 100vh;
+  max-width: 100vw;
 `;
 
 const ContentWrapper = styled.main`
@@ -36,9 +37,9 @@ export default function App() {
     <CartButton key="openCart" />,
   ];
   const links = [
-    <Link key="productsLink" to="/products">
-      Products
-    </Link>,
+    { to: '/products', text: 'Shop' },
+    { to: '/blog', text: 'Blog' },
+    { to: '/about', text: 'About' },
   ];
 
   return (

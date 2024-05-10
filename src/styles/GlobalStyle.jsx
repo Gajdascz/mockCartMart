@@ -13,6 +13,7 @@ export default createGlobalStyle`
     --color-primary: ${({ theme }) => theme.colors.primary};
     --color-primary-variant: ${({ theme }) => theme.colors.primaryVariant};
     --color-secondary: ${({ theme }) => theme.colors.secondary};
+    --color-error:${({ theme }) => theme.colors.error};
     --color-text-primary: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.primary}`};
     --color-text-secondary: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.secondary}`};
     --color-text-disabled: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.disabled}`};
@@ -26,6 +27,7 @@ export default createGlobalStyle`
         
     --border: ${({ theme }) => `2px solid ${theme.colors.border}`};
     --border-radius: 10px;
+    --border-color: ${({ theme }) => theme.colors.border};
 
     --space-small: 0.5rem;
     --space-medium: 1rem;
