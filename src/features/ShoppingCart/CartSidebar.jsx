@@ -14,6 +14,12 @@ const Sidebar = styled.div`
   }
 `;
 
+const ItemsContainer = styled.div``;
+
 export default function CartSidebar() {
-  return <Sidebar></Sidebar>;
+  return (
+    <Sidebar>
+      <ItemsContainer></ItemsContainer>
+    </Sidebar>
+  );
 }

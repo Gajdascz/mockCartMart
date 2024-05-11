@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-
-import Action from './Action';
-import Icon from './Icon';
+import Icon from '../../components/Icon/Icon';
 
 const MenuContainer = styled.div`
   color: var(--color-on-surface);
   border: 1px solid var(--border-color);
   cursor: pointer;
   position: relative;
+  max-width: 50%;
 `;
 const MenuHead = styled.div`
   display: flex;
@@ -29,18 +28,18 @@ const MenuHead = styled.div`
 const DropdownChevron = styled(Icon)`
   width: 24px;
   height: 24px;
-`;
-const DefaultSelected = styled.p`
-  color: var(--color-text-disabled);
+  position: absolute;
+  right: 0%;
 `;
 
-const CurrentSelect = styled(DefaultSelected)`
-  color: var(--color-secondary);
-  min-width: 100px;
-  max-width: 150px;
+const CurrentSelect = styled.p`
+  color: ${({ $isDefault }) =>
+    $isDefault ? 'var(--color-text-disabled)' : 'var(--color-secondary)'};
+  max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding-right: var(--space-small);
 `;
 
 const OptionsContainer = styled.div`
@@ -76,29 +75,51 @@ export default function OptionsMenu({
   onSelected,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleMenuToggle = () => setIsOpen((prev) => !prev);
-  const isMultiSelect = Array.isArray(selected);
   const handleSelect = (e) => onSelected(e.target.textContent);
+
+  const headRef = useRef();
+  const optionsRef = useRef();
+
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  const handleClick = (e) => {
+    if (headRef?.current && headRef.current.contains(e.target)) return;
+    else if (optionsRef?.current && !optionsRef.current.contains(e.target))
+      setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const removeListeners = () => {
+      document.removeEventListener('click', handleClick);
+    };
+    if (isOpen) {
+      document.addEventListener('click', handleClick);
+    } else removeListeners();
+    return removeListeners;
+  }, [isOpen]);
+
+  const isMultiSelect = Array.isArray(selected);
+  const isDefault = selected.length === 0;
 
   return (
     <MenuContainer>
-      <MenuHead onClick={handleMenuToggle}>
-        {selected.length === 0 ? (
-          <DefaultSelected>{defaultText}</DefaultSelected>
-        ) : (
-          <CurrentSelect>
-            {isMultiSelect ? selected.join(', ') : selected}
-          </CurrentSelect>
-        )}
+      <MenuHead onClick={toggleMenu} ref={headRef}>
+        <CurrentSelect $isDefault={isDefault}>
+          {isDefault
+            ? defaultText
+            : isMultiSelect
+              ? selected.join(', ')
+              : selected}
+        </CurrentSelect>
         <DropdownChevron path="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
       </MenuHead>
       {isOpen && (
-        <OptionsContainer>
+        <OptionsContainer ref={optionsRef}>
           {options?.map((option, index) => (
             <MenuOption
               key={index}
               $isActive={
-                isMultiSelect ? selected.includes(option) : selected === option
+                isMultiSelect ? selected?.includes(option) : selected === option
               }
               onClick={handleSelect}
             >

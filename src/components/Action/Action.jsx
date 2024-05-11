@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 const BaseAction = styled.div`
   display: flex;
@@ -35,6 +36,11 @@ const ActionButton = styled(BaseAction).attrs({ as: 'button' })``;
 const ActionLink = styled(BaseAction).attrs({ as: Link })``;
 const ActionAnchor = styled(BaseAction).attrs({ as: 'a' })``;
 const ActionNavLink = styled(BaseAction).attrs({ as: NavLink })``;
+
+Action.propTypes = {
+  type: PropTypes.oneOf(['link', 'button', 'a', 'navLink']),
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+};
 
 export default function Action({ type, children = 'Click', ...rest }) {
   switch (type) {

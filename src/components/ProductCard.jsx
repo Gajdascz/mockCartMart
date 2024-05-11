@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import ProductRating from './ProductRating';
-import Action from './Action';
+import Action from './Action/Action';
 
 const Card = styled.div`
   display: flex;

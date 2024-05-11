@@ -1,4 +1,3 @@
-import { element } from 'prop-types';
 import App from './App';
 import RouteError from './components/RouteError';
 import HomePage from './features/HomePage/HomePage';

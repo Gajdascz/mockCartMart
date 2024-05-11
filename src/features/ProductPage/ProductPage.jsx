@@ -1,23 +1,16 @@
 import styled from 'styled-components';
-import ProductCard from '../../components/ProductCard';
-import OptionsMenu from '../../components/OptionsMenu';
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react';
+import ProductSearchInput from './components/ProductSearch';
+import ProductSortOptions from './components/ProductSortOptions';
+import ProductCategoryOptions from './components/ProductCategoryOptions';
+import ProductList from './components/ProductList';
 
 const ProductPageContainer = styled.div`
   max-width: 100vw;
   display: flex;
   flex-direction: column;
   gap: var(--space-medium);
-`;
-
-const ProductList = styled.section`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(525px, 1fr));
-  gap: var(--space-medium);
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
 const ProductUtils = styled.section`
@@ -29,16 +22,9 @@ const ProductUtils = styled.section`
   gap: var(--space-medium);
 `;
 
-const ProductSearch = styled.input`
-  cursor: text;
-  flex: 1;
-  padding: var(--space-small);
-  min-width: 250px;
-`;
 const OptionMenusContainer = styled.div`
   display: flex;
   gap: var(--space-small);
-  flex-wrap: wrap;
   min-width: 250px;
   flex: 1;
   > * {
@@ -47,59 +33,32 @@ const OptionMenusContainer = styled.div`
 `;
 export default function ProductPage() {
   const { products } = useOutletContext();
+  const [currentProducts, setCurrentProducts] = useState([...products]);
   const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState('');
 
-  const onCategoryChange = (selected) =>
-    setCategories((prev) => {
-      if (prev.includes(selected))
-        return prev.filter((curr) => curr !== selected);
-      return [...categories, selected];
-    });
-  const onSortByChange = () => {};
   return (
     <ProductPageContainer>
       <ProductUtils>
-        <ProductSearch placeholder="Search Products" />
-
+        <ProductSearchInput
+          products={products}
+          setCurrentProducts={setCurrentProducts}
+        />
         <OptionMenusContainer>
-          <OptionsMenu
-            defaultText="Categories"
-            selected={categories}
-            onSelected={onCategoryChange}
-            options={products.reduce((acc, product) => {
-              const category = product.category;
-              if (!acc.includes(category)) acc.push(category);
-              return acc;
-            }, [])}
+          <ProductCategoryOptions
+            categories={categories}
+            setCategories={setCategories}
+            products={products}
           />
-          <OptionsMenu
-            defaultText="Sort"
-            selected={sortBy}
-            onSelected={onSortByChange}
-            options={[
-              'Rating Score',
-              'Rating Count',
-              'Price Low-High',
-              'Price High-low',
-            ]}
+          <ProductSortOptions
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            products={products}
+            setCurrentProducts={setCurrentProducts}
           />
         </OptionMenusContainer>
       </ProductUtils>
-      <ProductList>
-        {categories.length === 0
-          ? products?.map((product) => (
-              <ProductCard key={product.id} productData={product} />
-            ))
-          : products?.reduce((acc, product) => {
-              const category = product.category;
-              if (categories.includes(category))
-                acc.push(
-                  <ProductCard key={product.id} productData={product} />,
-                );
-              return acc;
-            }, [])}
-      </ProductList>
+      <ProductList currentProducts={currentProducts} categories={categories} />
     </ProductPageContainer>
   );
 }

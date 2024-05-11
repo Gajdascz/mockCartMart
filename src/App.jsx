@@ -28,6 +28,8 @@ const ContentWrapper = styled.main`
   padding: var(--space-large);
 `;
 
+const HeaderIcon = styled;
+
 export default function App() {
   const [isDark, setIsDark] = useState(true);
   const { products, setProducts } = useProducts();

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Action from './Action';
+import Action from './Action/Action';
 
 import styled from 'styled-components';
 
