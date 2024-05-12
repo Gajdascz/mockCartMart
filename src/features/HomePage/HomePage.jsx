@@ -4,12 +4,12 @@ import neonSign from './assets/neon-open-sign.jpg';
 import { Link } from 'react-router-dom';
 import Section from '../../components/Section';
 
-import Hero from '../../components/Hero';
+import HeroSlider from '../HeroSlider/HeroSlider';
 import hero0 from './assets/hero-0.webp';
 import hero1 from './assets/hero-1.webp';
 import hero2 from './assets/hero-2.webp';
 
-const PageContainer = styled.main`
+const PageContainer = styled.section`
   flex: 1;
   display: grid;
   grid-template-rows: minmax(400px, 2.5fr) 1fr;
@@ -19,14 +19,14 @@ const PageContainer = styled.main`
 export default function HomePage() {
   return (
     <PageContainer>
-      {/* <Hero
+      <HeroSlider
         displays={[
           { img: { src: hero0 }, overlay: { header: 'Lorem' } },
           { img: { src: hero1 }, overlay: { header: 'Ipsum' } },
           { img: { src: hero2 }, overlay: { header: 'Dolor' } },
         ]}
       />
-      <Section
+      {/* <Section
         img={{
           src: happyCustomer,
           alt: 'Customer happily receiving their order.',

@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import Icon from '../../../components/Icon/Icon';
 import Action from '../../../components/Action/Action';
 import styled from 'styled-components';
+import { useCartContext } from '../../../contexts/CartContext';
 
 const ItemCount = styled.p`
   font-weight: bold;
@@ -15,11 +17,16 @@ const ItemCount = styled.p`
   align-items: center;
 `;
 
-export default function CartButton({ itemCount, onClick }) {
+CartButton.propTypes = {
+  onClick: PropTypes.func,
+};
+
+export default function CartButton({ onClick }) {
+  const { itemsInCart } = useCartContext();
   return (
     <Action type="button" onClick={onClick}>
       <Icon type="shoppingCart" title="Your Cart" />
-      {itemCount > 0 && <ItemCount>{itemCount}</ItemCount>}
+      {itemsInCart.length > 0 && <ItemCount>{itemsInCart.length}</ItemCount>}
     </Action>
   );
 }

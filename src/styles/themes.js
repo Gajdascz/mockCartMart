@@ -13,12 +13,14 @@ const light = {
     primaryVariant: '#3700B3',
     secondary: '#03DAC6',
     error: '#B00020',
+    success: `#18632B`,
     border: '#E0E0E0',
     on: {
       primary: '#ffffff',
       secondary: '#000000',
       surface: '#000000',
       error: '#ffffff',
+      success: '#ffffff',
     },
   },
   surface: [
@@ -56,13 +58,14 @@ const dark = {
     primaryVariant: '#3700B3',
     secondary: '#03DAC6',
     error: '#CF6679',
-
+    success: `#2AAC48`,
     border: '#383838',
     on: {
       primary: '#000000',
       secondary: '#000000',
       surface: '#ffffff',
       error: '#000000',
+      success: '#000000',
     },
   },
   surface: [

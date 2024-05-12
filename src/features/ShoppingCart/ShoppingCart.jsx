@@ -1,17 +1,13 @@
 import { useState } from 'react';
-import { useCartContext } from '../../contexts/CartContext';
 import CartSidebar from './components/CartSidebar';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import CartButton from './components/CartButton';
 
 const ANIMATION_TIME = 500;
 
-export default function ShoppingCart({ items = [] }) {
+export default function ShoppingCart() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [animatingStatus, setAnimatingStatus] = useState(null);
-
-  const { itemsInCart, addToCart, removeFromCart, clearCart, getCartTotal } =
-    useCartContext();
 
   const openSidebar = () => {
     setAnimatingStatus('opening');
@@ -30,7 +26,7 @@ export default function ShoppingCart({ items = [] }) {
 
   return (
     <>
-      <CartButton itemCount={items.length} onClick={toggleSidebar} />
+      <CartButton onClick={toggleSidebar} />
       {(isSidebarOpen || animatingStatus) && (
         <Backdrop onClick={toggleSidebar}>
           <CartSidebar

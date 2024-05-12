@@ -4,10 +4,6 @@ import Action from '../../../components/Action/Action';
 import CartItem from './CartItem';
 import Icon from '../../../components/Icon/Icon';
 import { useCartContext } from '../../../contexts/CartContext';
-const HeaderContainer = styled.div`
-  width: 100%;
-  display: flex;
-`;
 
 const slideIn = keyframes`
 0% {
@@ -22,15 +18,16 @@ const Sidebar = styled.div`
   position: fixed;
   top: 0;
   right: 0;
+  width: 75%;
   height: 100%;
   background-color: var(--surface-0-color);
-  width: 60%;
   z-index: 100;
   color: var(--color-on-surface);
   padding: var(--space-medium);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: var(--space-medium);
   ${({ $animatingStatus }) =>
     $animatingStatus === 'closing' &&
     css`
@@ -49,20 +46,41 @@ const Sidebar = styled.div`
   }
 `;
 
+const HeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+const CloseButton = styled(Action)`
+  padding: 0;
+  width: 33%;
+  min-width: fit-content;
+`;
+const ClearButton = styled(Action)`
+  width: 33%;
+  min-width: fit-content;
+`;
+
 const BodyContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
-`;
-const BodyHeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
   gap: var(--space-medium);
+  width: 100%;
+  height: 90%;
 `;
 
 const ItemsContainer = styled.div`
   flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border: var(--border);
+  padding: var(--space-medium);
+  border-radius: var(--border-radius);
+  box-shadow: var(--surface-4-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-medium);
 `;
 
 const NoItemsInCart = styled.div`
@@ -77,15 +95,26 @@ const NoItemsInCart = styled.div`
   }
 `;
 
-const CloseButton = styled(Action)`
-  padding: 0;
-  width: 33%;
+const CheckoutSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-medium);
+  padding: var(--space-medium);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--surface-3-shadow);
 `;
-const ClearButton = styled(Action)``;
 
-const CheckoutSection = styled.div``;
 const CheckoutButton = styled(Action)`
   width: 50%;
+  background-color: var(--surface-4-color);
+  box-shadow: var(--surface-4-shadow);
+`;
+
+const CartTotal = styled.p`
+  font-weight: bold;
+  font-size: 1.2rem;
 `;
 CartSidebar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
@@ -98,7 +127,7 @@ export default function CartSidebar({
   animationTime,
   animatingStatus,
 }) {
-  const { getCartTotal, itemsInCart, clearCart, removeFromCart } =
+  const { getCartTotal, itemsInCart, clearCart, setItemQuantity } =
     useCartContext();
   return (
     <Sidebar $animationTime={animationTime} $animatingStatus={animatingStatus}>
@@ -106,6 +135,9 @@ export default function CartSidebar({
         <CloseButton onClick={onClose}>
           <Icon type="arrowLeft" />
         </CloseButton>
+        {itemsInCart.length > 0 ? (
+          <ClearButton onClick={clearCart}>Clear</ClearButton>
+        ) : null}
       </HeaderContainer>
       <BodyContainer>
         {itemsInCart.length === 0 ? (
@@ -120,21 +152,21 @@ export default function CartSidebar({
           </NoItemsInCart>
         ) : (
           <>
-            <BodyHeaderWrapper>
-              <h3>Items: {itemsInCart.length}</h3>
-              <ClearButton onClick={clearCart}>Clear</ClearButton>
-            </BodyHeaderWrapper>
             <ItemsContainer>
               {itemsInCart.map((item) => (
-                <CartItem key={item.id} onRemove={removeFromCart} {...item} />
+                <CartItem
+                  key={item.id}
+                  setItemQuantity={setItemQuantity}
+                  {...item}
+                />
               ))}
             </ItemsContainer>
+            <CheckoutSection>
+              <CartTotal>Total: ${getCartTotal().toFixed(2)}</CartTotal>
+              <CheckoutButton>Checkout</CheckoutButton>
+            </CheckoutSection>
           </>
         )}
-        <CheckoutSection>
-          <p>Total: ${getCartTotal().toFixed(2)}</p>
-          <CheckoutButton>Checkout</CheckoutButton>
-        </CheckoutSection>
       </BodyContainer>
     </Sidebar>
   );

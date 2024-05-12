@@ -14,6 +14,7 @@ import ThemeToggleButton from './features/ThemeToggle/ThemeToggle';
 import useProducts from './hooks/useProducts';
 import Spinner from './components/Spinner/Spinner';
 import CartProvider from './contexts/CartProvider';
+import Hero from './features/HeroSlider/HeroSlider';
 
 const Layout = styled.div`
   display: grid;

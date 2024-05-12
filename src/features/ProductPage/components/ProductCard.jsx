@@ -89,6 +89,30 @@ const AddToCartButton = styled(Action)`
     box-shadow: var(--surface-5-shadow);
   }
 `;
+const AddToCartSuccessButton = styled(AddToCartButton)`
+  color: var(--color-success);
+  border-color: 2px solid var(--color-success);
+  gap: var(--space-small);
+  background-color: var(--color-on-success);
+  &:hover,
+  &:focus {
+    border-color: inherit;
+    background-color: inherit;
+    color: inherit;
+  }
+`;
+const SuccessCheck = styled.span`
+  font-size: 1.25rem;
+`;
+
+const AddToCartFailedButton = styled(AddToCartSuccessButton)`
+  box-shadow: 0 0 4px 6px var(--color-on-error);
+  color: var(--color-error);
+  border-color: 2px solid var(--color-error);
+`;
+const ErrorX = styled.span`
+  font-size: 1.25rem;
+`;
 
 ProductCard.propTypes = {
   productData: PropTypes.shape({
@@ -106,11 +130,14 @@ ProductCard.propTypes = {
 };
 export default function ProductCard({ productData }) {
   const [quantity, setQuantity] = useState(1);
+  const [addStatus, setAddStatus] = useState(false);
   const { id, image, title, price, rating, description } = productData;
   const { addToCart } = useCartContext();
-  const handleAddToCart = () =>
-    addToCart({ id, image, title, price, quantity });
-
+  const handleAddToCart = () => {
+    const result = addToCart({ id, image, title, price, quantity });
+    setAddStatus(result);
+    setTimeout(() => setAddStatus(false), 3000);
+  };
   return (
     <Card>
       <ImageWrapper>
@@ -127,13 +154,22 @@ export default function ProductCard({ productData }) {
         <QuantityAddToCartWrapper>
           <CardQuantityInput
             quantity={quantity}
-            setQuantity={setQuantity}
+            onQuantityChange={setQuantity}
             min={1}
           />
-
-          <AddToCartButton onClick={handleAddToCart}>
-            Add To Cart
-          </AddToCartButton>
+          {addStatus === false ? (
+            <AddToCartButton onClick={handleAddToCart}>
+              Add To Cart
+            </AddToCartButton>
+          ) : addStatus === true ? (
+            <AddToCartSuccessButton onClick={handleAddToCart}>
+              Added To Cart <SuccessCheck>✓</SuccessCheck>
+            </AddToCartSuccessButton>
+          ) : (
+            <AddToCartFailedButton onClick={handleAddToCart}>
+              Added To Cart Failed <ErrorX>X</ErrorX>
+            </AddToCartFailedButton>
+          )}
         </QuantityAddToCartWrapper>
       </ProductBodyContainer>
     </Card>

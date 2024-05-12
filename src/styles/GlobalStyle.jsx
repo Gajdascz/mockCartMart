@@ -13,7 +13,8 @@ export default createGlobalStyle`
     --color-primary: ${({ theme }) => theme.colors.primary};
     --color-primary-variant: ${({ theme }) => theme.colors.primaryVariant};
     --color-secondary: ${({ theme }) => theme.colors.secondary};
-    --color-error:${({ theme }) => theme.colors.error};
+    --color-error: ${({ theme }) => theme.colors.error};
+    --color-success: ${({ theme }) => theme.colors.success};
     --color-text-primary: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.primary}`};
     --color-text-secondary: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.secondary}`};
     --color-text-disabled: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.disabled}`};
@@ -22,6 +23,8 @@ export default createGlobalStyle`
     --color-on-background: ${({ theme }) => theme.colors.on.background};
     --color-on-surface: ${({ theme }) => theme.colors.on.surface};
     --color-on-error: ${({ theme }) => theme.colors.on.error};
+    --color-on-success: ${({ theme }) => theme.colors.on.success};
+
     --icon-width: 32px;
     --icon-height: 32px;
         

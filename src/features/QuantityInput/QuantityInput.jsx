@@ -52,37 +52,32 @@ const QuantityChangeButton = styled(Action)`
 
 QuantityInput.propTypes = {
   quantity: PropTypes.number,
-  setQuantity: PropTypes.func,
+  onQuantityChange: PropTypes.func,
   min: PropTypes.number,
   max: PropTypes.number,
 };
 
 export default function QuantityInput({
   quantity,
-  setQuantity,
+  onQuantityChange,
   min = 0,
   max = Infinity,
   ...rest
 }) {
-  const handleAddOne = () => setQuantity((prevQuantity) => prevQuantity + 1);
+  const handleAddOne = () =>
+    onQuantityChange(quantity >= max ? quantity : quantity + 1);
   const handleRemoveOne = () =>
-    setQuantity((prevQuantity) => {
-      if (prevQuantity <= min) return min;
-      else return prevQuantity - 1;
-    });
-  const handleQuantityInput = (e) =>
-    setQuantity((prevQuantity) => {
-      const newQuantity = Math.round(e.target.value);
-      if (['e', 'E', '+', '-'].includes(e.key)) return prevQuantity;
-      else if (newQuantity >= max) return max;
-      else if (newQuantity <= min) return min;
-      else return newQuantity;
-    });
+    onQuantityChange(quantity <= min ? min : quantity - 1);
+  const handleQuantityInput = (e) => {
+    const input = +e.target.value;
+    onQuantityChange(input <= min ? min : input >= max ? max : input);
+  };
   return (
     <Container {...rest}>
       <QuantityChangeButton onClick={handleAddOne}>+</QuantityChangeButton>
       <Input
         type="number"
+        pattern="[0-9]"
         onChange={handleQuantityInput}
         value={quantity === 0 ? '' : quantity}
         min={min}
