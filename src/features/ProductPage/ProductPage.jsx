@@ -36,7 +36,6 @@ export default function ProductPage() {
   const [currentProducts, setCurrentProducts] = useState([...products]);
   const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState('');
-
   return (
     <ProductPageContainer>
       <ProductUtils>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import ProductCard from '../../../components/ProductCard';
+import ProductCard from './ProductCard';
 import styled from 'styled-components';
 
 const ProductListWrapper = styled.section`

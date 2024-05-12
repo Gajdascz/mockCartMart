@@ -1,16 +1,40 @@
+import PropTypes from 'prop-types';
 import { lazy, Suspense } from 'react';
+import styled from 'styled-components';
+import Spinner from '../Spinner/Spinner';
 
 const svgs = {
-  star: lazy(() => import('./svgs/Star')),
+  starSolid: lazy(() => import('./svgs/StarSolid')),
   starHalf: lazy(() => import('./svgs/StarHalf')),
   chevronDown: lazy(() => import('./svgs/ChevronDown')),
+  arrowLeft: lazy(() => import('./svgs/ArrowLeft')),
   lightDark: lazy(() => import('./svgs/LightDark')),
   shoppingCart: lazy(() => import('./svgs/ShoppingCart')),
   gitHub: lazy(() => import('./svgs/GitHub')),
 };
 
+const BaseSvg = styled.div`
+  width: 32px;
+  height: 32px;
+  fill: var(--color-primary);
+`;
+
+Icon.propTypes = {
+  type: PropTypes.oneOf([
+    'starSolid',
+    'starHalf',
+    'chevronDown',
+    'arrowLeft',
+    'lightDark',
+    'shoppingCart',
+    'gitHub',
+  ]),
+};
 export default function Icon({ type, ...rest }) {
   const Svg = svgs[type];
-  if (type === 'shoppingCart') console.log(Svg);
-  return <Suspense>{Svg ? <Svg {...rest} /> : null}</Suspense>;
+  return (
+    <Suspense fallback={<Spinner />}>
+      {Svg ? <BaseSvg as={Svg} {...rest} /> : null}
+    </Suspense>
+  );
 }

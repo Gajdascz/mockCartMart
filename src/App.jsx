@@ -6,12 +6,14 @@ import ShopHeader from './components/ShopHeader';
 
 import { useState } from 'react';
 import ShopFooter from './components/ShopFooter';
-import CartButton from './features/ShoppingCart/CartButton';
-import ItemCard from './components/ProductCard';
+import CartButton from './features/ShoppingCart/ShoppingCart';
+import ItemCard from './features/ProductPage/components/ProductCard';
 import { Link, Outlet } from 'react-router-dom';
 
 import ThemeToggleButton from './features/ThemeToggle/ThemeToggle';
 import useProducts from './hooks/useProducts';
+import Spinner from './components/Spinner/Spinner';
+import CartProvider from './contexts/CartProvider';
 
 const Layout = styled.div`
   display: grid;
@@ -27,8 +29,6 @@ const ContentWrapper = styled.main`
   overflow: auto;
   padding: var(--space-large);
 `;
-
-const HeaderIcon = styled;
 
 export default function App() {
   const [isDark, setIsDark] = useState(true);
@@ -48,16 +48,17 @@ export default function App() {
     <ThemeProvider theme={isDark ? dark : light}>
       <GlobalStyle />
       <Layout>
-        <ShopHeader
-          logoText="mockCartMart"
-          icons={headerIcons}
-          shoppingCart={<CartButton />}
-          links={links}
-        />
-        <ContentWrapper>
-          <Outlet context={{ products }} />
-        </ContentWrapper>
-
+        <CartProvider>
+          <ShopHeader
+            logoText="mockCartMart"
+            icons={headerIcons}
+            shoppingCart={<CartButton />}
+            links={links}
+          />
+          <ContentWrapper>
+            <Outlet context={{ products }} />
+          </ContentWrapper>
+        </CartProvider>
         <ShopFooter />
       </Layout>
     </ThemeProvider>

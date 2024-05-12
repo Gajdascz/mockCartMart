@@ -103,7 +103,14 @@ export default function OptionsMenu({
 
   return (
     <MenuContainer>
-      <MenuHead onClick={toggleMenu} ref={headRef}>
+      <MenuHead
+        onClick={toggleMenu}
+        ref={headRef}
+        tabIndex={0}
+        role="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
         <CurrentSelect $isDefault={isDefault}>
           {isDefault
             ? defaultText
@@ -111,10 +118,10 @@ export default function OptionsMenu({
               ? selected.join(', ')
               : selected}
         </CurrentSelect>
-        <DropdownChevron path="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+        <DropdownChevron type="chevronDown" aria-hidden={true} />
       </MenuHead>
       {isOpen && (
-        <OptionsContainer ref={optionsRef}>
+        <OptionsContainer ref={optionsRef} role="listbox">
           {options?.map((option, index) => (
             <MenuOption
               key={index}
@@ -122,6 +129,10 @@ export default function OptionsMenu({
                 isMultiSelect ? selected?.includes(option) : selected === option
               }
               onClick={handleSelect}
+              role="option"
+              aria-selected={
+                isMultiSelect ? selected?.includes(option) : selected === option
+              }
             >
               {option}
             </MenuOption>

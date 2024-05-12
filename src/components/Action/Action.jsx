@@ -14,6 +14,7 @@ const BaseAction = styled.div`
   box-shadow: var(--surface-3-shadow);
   color: var(--color-primary);
   text-decoration: none;
+  font-weight: bold;
   transition:
     color linear 0.25s,
     border-color linear 0.25s,
@@ -30,6 +31,13 @@ const BaseAction = styled.div`
   &:hover > svg,
   &:focus > svg {
     fill: var(--color-secondary);
+  }
+  &:hover > p {
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    transition:
+      color linear 0.25s,
+      border-color linear 0.25s;
   }
 `;
 const ActionButton = styled(BaseAction).attrs({ as: 'button' })``;

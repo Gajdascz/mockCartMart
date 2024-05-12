@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-Star.propTypes = {
+StarSolid.propTypes = {
   title: PropTypes.string,
 };
 
-export default function Star({ title, ...rest }) {
+export default function StarSolid({ title, ...rest }) {
   return (
     <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" {...rest}>
       {title && <title>{title}</title>}
