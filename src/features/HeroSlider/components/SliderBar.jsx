@@ -3,10 +3,6 @@ import Icon from '../../../components/Icon/Icon';
 import Action from '../../../components/Action/Action';
 
 const SliderBarContainer = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -105%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,9 +21,14 @@ const SliderNavButton = styled(Action)`
   padding: 0;
 `;
 
-export default function SliderBar({ onNextSlide, onPrevSlide, children }) {
+export default function SliderBar({
+  onNextSlide,
+  onPrevSlide,
+  children,
+  ...rest
+}) {
   return (
-    <SliderBarContainer>
+    <SliderBarContainer {...rest}>
       <SliderNavButton onClick={onPrevSlide}>
         <Icon type="chevronLeft" />
       </SliderNavButton>

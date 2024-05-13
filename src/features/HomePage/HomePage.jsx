@@ -21,7 +21,13 @@ export default function HomePage() {
     <PageContainer>
       <HeroSlider
         displays={[
-          { img: { src: hero0 }, overlay: { header: 'Lorem' } },
+          {
+            img: { src: hero0 },
+            overlay: {
+              header: 'Lorem',
+              text: 'ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at quam imperdiet, dignissim lorem quis, consectetur nunc.',
+            },
+          },
           { img: { src: hero1 }, overlay: { header: 'Ipsum' } },
           { img: { src: hero2 }, overlay: { header: 'Dolor' } },
         ]}
