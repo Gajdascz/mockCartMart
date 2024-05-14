@@ -75,6 +75,9 @@ export default function OptionsMenu({
   onSelected,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const isMultiSelect = Array.isArray(selected);
+  const isDefault = selected.length === 0;
+
   const handleSelect = (e) => onSelected(e.target.textContent);
 
   const headRef = useRef();
@@ -97,9 +100,6 @@ export default function OptionsMenu({
     } else removeListeners();
     return removeListeners;
   }, [isOpen]);
-
-  const isMultiSelect = Array.isArray(selected);
-  const isDefault = selected.length === 0;
 
   return (
     <MenuContainer>

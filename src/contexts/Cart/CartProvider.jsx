@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 CartProvider.propTypes = {
   children: PropTypes.node,
-  initialItems: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default function CartProvider({ children }) {

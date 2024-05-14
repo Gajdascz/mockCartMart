@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProductRating from './ProductRating';
-import Action from '../../../components/Action/Action';
-import QuantityInput from '../../QuantityInput/QuantityInput';
+import Action from '../../components/Action/Action';
+import QuantityInput from '../QuantityInput/QuantityInput';
 import styled from 'styled-components';
-import { useCartContext } from '../../../contexts/CartContext';
+import { useCartContext } from '../../contexts/Cart/CartContext';
 const Card = styled.div`
   display: flex;
   flex-wrap: wrap;

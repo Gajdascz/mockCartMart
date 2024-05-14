@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Icon from '../../../components/Icon/Icon';
+import Icon from '../../components/Icon/Icon';
 import styled from 'styled-components';
 
 const ProductRatingWrapper = styled.div`

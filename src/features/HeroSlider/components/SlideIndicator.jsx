@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const IndicatorEffect = css`
@@ -19,6 +20,14 @@ const Indicator = styled.button`
 const ActiveSliderIndicator = styled(Indicator)`
   ${IndicatorEffect}
 `;
+
+SlideIndicator.propTypes = {
+  size: PropTypes.string,
+  activeColor: PropTypes.string,
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
 export default function SlideIndicator({
   size = '20px',
   activeColor = 'var(--color-primary)',

@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import SliderBar from './components/SliderBar';
 import SlideIndicator from './components/SlideIndicator';
-import SlideOverlay from './components/SlideOverlay';
+import ImageWrapper from '../../components/ImageWrapper/ImageWrapper';
+import ImageOverlay from '../../components/ImageOverlay/ImageOverlay';
 
 const ANIMATION_TIME = 500;
 
@@ -12,18 +13,14 @@ const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border-radius: var(--border-radius);
+  border: var(--border);
+  box-shadow: var(--surface-3-shadow);
+  max-height: 75vh;
 `;
 
-const HeroSliderBar = styled(SliderBar)``;
-
-const ImageWrapper = styled.div`
-  background-image: url(${(props) => props.$imgSrc});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+const HeroImageWrapper = styled(ImageWrapper)`
   height: 100%;
-  padding: var(--space-large);
-  box-shadow: 0 0 10px 2px var(--surface-3-shadow);
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   transform: ${({ $isVisible, $direction }) =>
     $isVisible
@@ -34,10 +31,6 @@ const ImageWrapper = styled.div`
   transition:
     opacity ${({ $animationTime }) => $animationTime} ease,
     transform ${({ $animationTime }) => $animationTime} ease;
-`;
-
-const HeroOverlay = styled(SlideOverlay)`
-  width: 60%;
 `;
 
 HeroSlider.propTypes = {
@@ -51,6 +44,10 @@ export default function HeroSlider({ displays }) {
   const { img, overlay } = displays[currentDisplayIndex];
 
   useEffect(() => setIsVisible(true), [currentDisplayIndex]);
+  useEffect(() => {
+    const autoInterval = setInterval(onNextSlide, 5000);
+    return () => clearInterval(autoInterval);
+  }, [currentDisplayIndex]);
 
   const toSlide = (index) => {
     const dir = index > currentDisplayIndex ? 'right' : 'left';
@@ -66,24 +63,24 @@ export default function HeroSlider({ displays }) {
 
   const onNextSlide = () => toSlide(currentDisplayIndex + 1);
   const onPrevSlide = () => toSlide(currentDisplayIndex - 1);
-
   return (
     <HeroContainer>
-      <ImageWrapper
-        $imgSrc={img.src}
+      <HeroImageWrapper
+        imgSrc={img.src}
         $animationTime={`${ANIMATION_TIME / 1000}s`}
         $isVisible={isVisible}
         $direction={direction}
       >
         {overlay && (
-          <HeroOverlay
+          <ImageOverlay
             headerText={overlay.header}
             bodyText={overlay.text}
-            action={''}
+            action={overlay.action}
+            $position={overlay.position}
           />
         )}
-      </ImageWrapper>
-      <HeroSliderBar onNextSlide={onNextSlide} onPrevSlide={onPrevSlide}>
+      </HeroImageWrapper>
+      <SliderBar onNextSlide={onNextSlide} onPrevSlide={onPrevSlide}>
         {displays.map((display, index) => (
           <SlideIndicator
             key={index}
@@ -91,7 +88,7 @@ export default function HeroSlider({ displays }) {
             onClick={() => toSlide(index)}
           />
         ))}
-      </HeroSliderBar>
+      </SliderBar>
     </HeroContainer>
   );
 }

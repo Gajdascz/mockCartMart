@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../components/Icon/Icon';
 import Action from '../../../components/Action/Action';
 import styled from 'styled-components';
-import { useCartContext } from '../../../contexts/CartContext';
+import { useCartContext } from '../../../contexts/Cart/CartContext';
 
 const ItemCount = styled.p`
   font-weight: bold;

@@ -3,7 +3,7 @@ import styled, { keyframes, css } from 'styled-components';
 import Action from '../../../components/Action/Action';
 import CartItem from './CartItem';
 import Icon from '../../../components/Icon/Icon';
-import { useCartContext } from '../../../contexts/CartContext';
+import { useCartContext } from '../../../contexts/Cart/CartContext';
 
 const slideIn = keyframes`
 0% {

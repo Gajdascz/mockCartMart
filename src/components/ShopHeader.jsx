@@ -98,6 +98,7 @@ const HamburgerDropdown = styled.nav`
   border-radius: var(--border-radius);
   padding: var(--space-medium);
   box-shadow: var(--surface-4-shadow);
+  z-index: 100;
   & > ${NavLink} {
     font-size: 1.25rem;
     width: 200px;
