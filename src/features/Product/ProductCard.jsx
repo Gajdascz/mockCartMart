@@ -5,6 +5,7 @@ import Action from '../../components/Action/Action';
 import QuantityInput from '../QuantityInput/QuantityInput';
 import styled from 'styled-components';
 import { useCartContext } from '../../contexts/Cart/CartContext';
+import AddToCartButton from './AddToCartButton';
 const Card = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -13,7 +14,6 @@ const Card = styled.div`
   border: var(--border);
   border-radius: var(--border-radius);
   overflow: hidden;
-  height: 100%;
 `;
 
 const ImageWrapper = styled.div`
@@ -22,12 +22,14 @@ const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  aspect-ratio: 1;
   overflow: hidden;
   min-width: 125px;
+  max-width: 100%;
+  max-height: 100%;
   & > img {
     width: 100%;
     height: 100%;
+    max-height: 50vh;
     object-fit: contain;
   }
 `;
@@ -39,7 +41,8 @@ const ProductBodyContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: var(--space-small);
-  min-height: 0;
+  min-height: min-content;
+  max-width: 100%;
 `;
 const ProductBodyHeader = styled.div`
   display: flex;
@@ -66,52 +69,10 @@ const QuantityAddToCartWrapper = styled.div`
   display: flex;
   gap: var(--space-medium);
   flex-wrap: wrap;
+  max-width: 100%;
 `;
 const CardQuantityInput = styled(QuantityInput)`
   width: 30%;
-`;
-
-const AddToCartButton = styled(Action)`
-  background-color: var(--surface-4-color);
-  box-shadow: var(--surface-4-shadow);
-  font-weight: bold;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  border-radius: var(--border-radius);
-  padding: var(--space-small);
-  min-width: fit-content;
-  flex: 1;
-  &:hover,
-  &:focus {
-    border-color: 2px solid var(--color-secondary);
-    background-color: var(--color-on-secondary);
-    color: var(--color-secondary);
-    box-shadow: var(--surface-5-shadow);
-  }
-`;
-const AddToCartSuccessButton = styled(AddToCartButton)`
-  color: var(--color-success);
-  border-color: 2px solid var(--color-success);
-  gap: var(--space-small);
-  background-color: var(--color-on-success);
-  &:hover,
-  &:focus {
-    border-color: inherit;
-    background-color: inherit;
-    color: inherit;
-  }
-`;
-const SuccessCheck = styled.span`
-  font-size: 1.25rem;
-`;
-
-const AddToCartFailedButton = styled(AddToCartSuccessButton)`
-  box-shadow: 0 0 4px 6px var(--color-on-error);
-  color: var(--color-error);
-  border-color: 2px solid var(--color-error);
-`;
-const ErrorX = styled.span`
-  font-size: 1.25rem;
 `;
 
 ProductCard.propTypes = {
@@ -128,7 +89,7 @@ ProductCard.propTypes = {
   }),
   onAddToCart: PropTypes.func,
 };
-export default function ProductCard({ productData }) {
+export default function ProductCard({ productData, hideDesc, ...rest }) {
   const [quantity, setQuantity] = useState(1);
   const [addStatus, setAddStatus] = useState(false);
   const { id, image, title, price, rating, description } = productData;
@@ -139,7 +100,7 @@ export default function ProductCard({ productData }) {
     setTimeout(() => setAddStatus(false), 3000);
   };
   return (
-    <Card>
+    <Card {...rest}>
       <ImageWrapper>
         <img src={image} />
       </ImageWrapper>
@@ -150,26 +111,17 @@ export default function ProductCard({ productData }) {
           <ProductRating rate={rating.rate} count={rating.count} />
           <ProductPrice>${price.toFixed(2)}</ProductPrice>
         </ProductBodyHeader>
-        <ProductDescription>{description}</ProductDescription>
+        {!hideDesc && <ProductDescription>{description}</ProductDescription>}
         <QuantityAddToCartWrapper>
           <CardQuantityInput
             quantity={quantity}
             onQuantityChange={setQuantity}
             min={1}
           />
-          {addStatus === false ? (
-            <AddToCartButton onClick={handleAddToCart}>
-              Add To Cart
-            </AddToCartButton>
-          ) : addStatus === true ? (
-            <AddToCartSuccessButton onClick={handleAddToCart}>
-              Added To Cart <SuccessCheck>✓</SuccessCheck>
-            </AddToCartSuccessButton>
-          ) : (
-            <AddToCartFailedButton onClick={handleAddToCart}>
-              Added To Cart Failed <ErrorX>X</ErrorX>
-            </AddToCartFailedButton>
-          )}
+          <AddToCartButton
+            addStatus={addStatus}
+            handleAddToCart={handleAddToCart}
+          />
         </QuantityAddToCartWrapper>
       </ProductBodyContainer>
     </Card>

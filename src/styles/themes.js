@@ -1,13 +1,4 @@
-const common = {
-  textOpacity: {
-    primary: `DE`,
-    secondary: `99`,
-    disabled: `61`,
-  },
-};
-
 const light = {
-  ...common,
   colors: {
     primary: '#6200EE',
     primaryVariant: '#3700B3',
@@ -15,12 +6,14 @@ const light = {
     error: '#B00020',
     success: `#18632B`,
     border: '#E0E0E0',
+    disabled: '#F0F0F0',
     on: {
       primary: '#ffffff',
       secondary: '#000000',
       surface: '#000000',
       error: '#ffffff',
       success: '#ffffff',
+      disabled: '#505050',
     },
   },
   surface: [
@@ -52,7 +45,6 @@ const light = {
 };
 
 const dark = {
-  ...common,
   colors: {
     primary: '#BB86FC',
     primaryVariant: '#3700B3',
@@ -60,12 +52,14 @@ const dark = {
     error: '#CF6679',
     success: `#2AAC48`,
     border: '#383838',
+    disabled: '#2C2C2C',
     on: {
       primary: '#000000',
       secondary: '#000000',
       surface: '#ffffff',
       error: '#000000',
       success: '#000000',
+      disabled: '#C0C0C0',
     },
   },
   surface: [

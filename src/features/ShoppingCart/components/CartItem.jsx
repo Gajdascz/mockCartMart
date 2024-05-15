@@ -8,11 +8,11 @@ const ItemContainer = styled.div`
   border-radius: var(--border-radius);
   box-shadow: var(--surface-4-shadow);
   max-width: 100%;
-  min-height: fit-content;
+  min-height: min-content;
 `;
 
 const ItemImage = styled.img`
-  width: 100px;
+  width: 125px;
   height: auto;
 `;
 

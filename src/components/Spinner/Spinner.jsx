@@ -33,7 +33,7 @@ const SpinnerElement = styled.div`
 export default function Spinner() {
   return (
     <SpinnerWrapper>
-      <SpinnerElement />
+      <SpinnerElement role="status" />
     </SpinnerWrapper>
   );
 }

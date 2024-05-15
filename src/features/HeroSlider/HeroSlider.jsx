@@ -37,7 +37,7 @@ HeroSlider.propTypes = {
   displays: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default function HeroSlider({ displays }) {
+export default function HeroSlider({ displays, ...rest }) {
   const [currentDisplayIndex, setCurrentDisplayIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [direction, setDirection] = useState('');
@@ -45,7 +45,7 @@ export default function HeroSlider({ displays }) {
 
   useEffect(() => setIsVisible(true), [currentDisplayIndex]);
   useEffect(() => {
-    const autoInterval = setInterval(onNextSlide, 5000);
+    const autoInterval = setInterval(onNextSlide, 6000);
     return () => clearInterval(autoInterval);
   }, [currentDisplayIndex]);
 
@@ -64,7 +64,7 @@ export default function HeroSlider({ displays }) {
   const onNextSlide = () => toSlide(currentDisplayIndex + 1);
   const onPrevSlide = () => toSlide(currentDisplayIndex - 1);
   return (
-    <HeroContainer>
+    <HeroContainer {...rest}>
       <HeroImageWrapper
         imgSrc={img.src}
         $animationTime={`${ANIMATION_TIME / 1000}s`}
@@ -86,6 +86,7 @@ export default function HeroSlider({ displays }) {
             key={index}
             isActive={index === currentDisplayIndex}
             onClick={() => toSlide(index)}
+            index={index}
           />
         ))}
       </SliderBar>

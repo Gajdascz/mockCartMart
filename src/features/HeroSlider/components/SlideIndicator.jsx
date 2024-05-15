@@ -26,6 +26,7 @@ SlideIndicator.propTypes = {
   activeColor: PropTypes.string,
   isActive: PropTypes.bool,
   onClick: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default function SlideIndicator({
@@ -33,10 +34,20 @@ export default function SlideIndicator({
   activeColor = 'var(--color-primary)',
   isActive = false,
   onClick,
+  index,
 }) {
   return isActive ? (
-    <ActiveSliderIndicator $size={size} $activeColor={activeColor} />
+    <ActiveSliderIndicator
+      $size={size}
+      $activeColor={activeColor}
+      aria-pressed="true"
+      aria-label={`Slide ${index + 1}`}
+    />
   ) : (
-    <Indicator $size={size} onClick={onClick} />
+    <Indicator
+      $size={size}
+      onClick={onClick}
+      aria-label={`Slide ${index + 1}`}
+    />
   );
 }

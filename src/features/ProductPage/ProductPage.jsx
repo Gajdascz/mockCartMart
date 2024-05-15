@@ -66,7 +66,8 @@ export default function ProductPage() {
     newSearchInputValue = searchInputValue,
   } = {}) => {
     let updatedProducts = [...products];
-    if (newCategories.length > 0) updatedProducts = getByCategory(categories);
+    if (newCategories.length > 0)
+      updatedProducts = getByCategory(newCategories);
     if (newSearchInputValue.length > 0)
       updatedProducts = searchProducts(newSearchInputValue, updatedProducts);
     if (newSortBy.length > 0)
@@ -81,14 +82,18 @@ export default function ProductPage() {
         (category) => category !== selectedCategory,
       );
     else newCategories = [...categories, selectedCategory];
-    console.log(newCategories);
     setCategories(newCategories);
     updateProducts({ newCategories });
   };
 
   const onSortUpdate = (newSortBy) => {
-    setSortBy(newSortBy);
-    updateProducts({ newSortBy });
+    if (newSortBy === sortBy) {
+      setSortBy('');
+      updateProducts({ newSortBy: '' });
+    } else {
+      setSortBy(newSortBy);
+      updateProducts({ newSortBy });
+    }
   };
   const onSearchInput = (e) => {
     const value = e.target.value;

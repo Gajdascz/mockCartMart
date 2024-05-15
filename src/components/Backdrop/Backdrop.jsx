@@ -21,6 +21,7 @@ export default function Backdrop({ children, opacity = '.5', onClick }) {
   const backdropRef = useRef();
 
   const handleClick = (e) => {
+    e.stopPropagation();
     if (e.target === e.currentTarget && onClick) onClick();
   };
 

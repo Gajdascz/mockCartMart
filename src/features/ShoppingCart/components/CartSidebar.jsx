@@ -4,6 +4,7 @@ import Action from '../../../components/Action/Action';
 import CartItem from './CartItem';
 import Icon from '../../../components/Icon/Icon';
 import { useCartContext } from '../../../contexts/Cart/CartContext';
+import CheckoutPopup from './CheckoutPopup';
 
 const slideIn = keyframes`
 0% {
@@ -121,11 +122,13 @@ CartSidebar.propTypes = {
   onClose: PropTypes.func,
   animationTime: PropTypes.string,
   animatingStatus: PropTypes.string,
+  openCheckout: PropTypes.func,
 };
 export default function CartSidebar({
   onClose,
   animationTime,
   animatingStatus,
+  openCheckout,
 }) {
   const { getCartTotal, itemsInCart, clearCart, setItemQuantity } =
     useCartContext();
@@ -163,7 +166,7 @@ export default function CartSidebar({
             </ItemsContainer>
             <CheckoutSection>
               <CartTotal>Total: ${getCartTotal().toFixed(2)}</CartTotal>
-              <CheckoutButton>Checkout</CheckoutButton>
+              <CheckoutButton onClick={openCheckout}>Checkout</CheckoutButton>
             </CheckoutSection>
           </>
         )}

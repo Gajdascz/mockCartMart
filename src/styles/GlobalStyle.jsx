@@ -15,15 +15,14 @@ export default createGlobalStyle`
     --color-secondary: ${({ theme }) => theme.colors.secondary};
     --color-error: ${({ theme }) => theme.colors.error};
     --color-success: ${({ theme }) => theme.colors.success};
-    --color-text-primary: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.primary}`};
-    --color-text-secondary: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.secondary}`};
-    --color-text-disabled: ${({ theme }) => `${theme.colors.on.background}${theme.textOpacity.disabled}`};
+    --color-disabled: ${({ theme }) => theme.colors.disabled};
     --color-on-primary: ${({ theme }) => theme.colors.on.primary};
     --color-on-secondary: ${({ theme }) => theme.colors.on.secondary};
     --color-on-background: ${({ theme }) => theme.colors.on.background};
     --color-on-surface: ${({ theme }) => theme.colors.on.surface};
     --color-on-error: ${({ theme }) => theme.colors.on.error};
     --color-on-success: ${({ theme }) => theme.colors.on.success};
+    --color-on-disabled: ${({ theme }) => theme.colors.on.disabled};
 
     --icon-width: 32px;
     --icon-height: 32px;
