@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Icon from '../../../components/Icon/Icon';
-import Action from '../../../components/Action/Action';
+import Icon from '../../../../components/Icon/Icon';
+import Action from '../../../../components/Action/Action';
 
 const SliderBarContainer = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import MockCartProvider from '../../../test/mocks/cart/MockCartProvider';
-import { mockAddToCart } from '../../../test/mocks/cart/MockCartProviderFunctions';
+import { mockAddToCart } from '../../../test/mocks/cart/mockCartProviderFunctions';
 import ProductCard from './ProductCard';
 import userEvent from '@testing-library/user-event';
 const mockProduct = {
@@ -11,9 +11,8 @@ const mockProduct = {
   rating: { rate: 3.5, count: 200 },
   description: 'Description Text',
 };
-vi.mock('./components/AddToCartButton.jsx', () => ({
+vi.mock('./components/AddToCartButton/AddToCartButton.jsx', () => ({
   default: (props) => {
-    // console.log(props);
     return (
       <button
         {...props}
@@ -25,7 +24,7 @@ vi.mock('./components/AddToCartButton.jsx', () => ({
     );
   },
 }));
-vi.mock('./components/ProductRating.jsx', () => ({
+vi.mock('./components/ProductRating/ProductRating.jsx', () => ({
   default: (props) => {
     return (
       <div {...props} data-testid="productRating">

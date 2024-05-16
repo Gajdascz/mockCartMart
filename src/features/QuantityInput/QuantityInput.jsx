@@ -2,6 +2,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Action from '../../components/Action/Action';
+import {
+  DECREASE_ACTION_TEXT,
+  DECREASE_ARIA_LABEL,
+  INCREASE_ACTION_TEXT,
+  INCREASE_ARIA_LABEL,
+  INPUT_ARIA_LABEL,
+} from './config';
 
 const Container = styled.div`
   display: flex;
@@ -71,9 +78,9 @@ export default function QuantityInput({
     <Container {...rest}>
       <QuantityChangeButton
         onClick={handleAddOne}
-        aria-label="Increase quantity"
+        aria-label={INCREASE_ARIA_LABEL}
       >
-        +
+        {INCREASE_ACTION_TEXT}
       </QuantityChangeButton>
       <Input
         type="number"
@@ -82,13 +89,13 @@ export default function QuantityInput({
         value={quantity === 0 ? '' : quantity}
         min={min}
         max={max}
-        aria-label="Quantity input"
+        aria-label={INPUT_ARIA_LABEL}
       />
       <QuantityChangeButton
         onClick={handleRemoveOne}
-        aria-label="Decrease quantity"
+        aria-label={DECREASE_ARIA_LABEL}
       >
-        -
+        {DECREASE_ACTION_TEXT}
       </QuantityChangeButton>
     </Container>
   );

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import SliderBar from './components/SliderBar';
-import SlideIndicator from './components/SlideIndicator';
+import SliderBar from './components/SliderBar/SliderBar';
+import SlideIndicator from './components/SlideIndicator/SlideIndicator';
 import ImageWrapper from '../../components/ImageWrapper/ImageWrapper';
 import ImageOverlay from '../../components/ImageOverlay/ImageOverlay';
 
@@ -47,6 +47,7 @@ export default function HeroSlider({ displays, ...rest }) {
   useEffect(() => {
     const autoInterval = setInterval(onNextSlide, 6000);
     return () => clearInterval(autoInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDisplayIndex]);
 
   const toSlide = (index) => {

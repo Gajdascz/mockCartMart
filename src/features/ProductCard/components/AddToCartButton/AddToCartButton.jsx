@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Action from '../../../components/Action/Action';
+import Action from '../../../../components/Action/Action';
+import {
+  DEFAULT_TEXT,
+  FAILED_MARKER,
+  FAILED_TEXT,
+  SUCCESS_MARKER,
+  SUCCESS_TEXT,
+} from './config';
 const AddToCartAction = styled(Action)`
   background-color: var(--surface-4-color);
   font-weight: bold;
@@ -53,15 +60,17 @@ export default function AddToCartButton({
 }) {
   return addStatus === false ? (
     <AddToCartAction onClick={handleAddToCart} {...rest}>
-      Add To Cart
+      {DEFAULT_TEXT}
     </AddToCartAction>
   ) : addStatus === true ? (
     <AddToCartSuccessButton onClick={handleAddToCart} {...rest}>
-      Added To Cart <StatusMarker $isVisible={true}>✓</StatusMarker>
+      {SUCCESS_TEXT}
+      <StatusMarker $isVisible={true}>{SUCCESS_MARKER}</StatusMarker>
     </AddToCartSuccessButton>
   ) : (
     <AddToCartFailedButton onClick={handleAddToCart} {...rest}>
-      Add To Cart Failed <StatusMarker $isVisible={true}>X</StatusMarker>
+      {FAILED_TEXT}
+      <StatusMarker $isVisible={true}>{FAILED_MARKER}</StatusMarker>
     </AddToCartFailedButton>
   );
 }

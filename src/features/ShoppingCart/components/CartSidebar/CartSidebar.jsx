@@ -9,7 +9,8 @@ import {
   SHOP_ACTION_TEXT,
   TOTAL_LABEL,
   CHECKOUT_ACTION_TEXT,
-} from './constants';
+  CLEAR_ACTION_TEXT,
+} from './config';
 const slideIn = keyframes`
 0% {
   transform: translateX(100%);
@@ -145,17 +146,22 @@ export default function CartSidebar({
   animationTime,
   animatingStatus,
   openCheckout,
+  ...rest
 }) {
   const { getCartTotal, itemsInCart, clearCart, setItemQuantity } =
     useCartContext();
   return (
-    <Sidebar $animationTime={animationTime} $animatingStatus={animatingStatus}>
+    <Sidebar
+      $animationTime={animationTime}
+      $animatingStatus={animatingStatus}
+      {...rest}
+    >
       <HeaderContainer>
-        <CloseButton onClick={onClose}>
+        <CloseButton onClick={onClose} aria-label="close">
           <Icon type="arrowLeft" />
         </CloseButton>
         {itemsInCart.length > 0 ? (
-          <ClearButton onClick={clearCart}>Clear</ClearButton>
+          <ClearButton onClick={clearCart}>{CLEAR_ACTION_TEXT}</ClearButton>
         ) : null}
       </HeaderContainer>
       <BodyContainer>
@@ -179,7 +185,7 @@ export default function CartSidebar({
             </ItemsContainer>
             <CheckoutSection>
               <CartTotal>
-                {`${TOTAL_LABEL} $${getCartTotal().toFixed(2)}`}
+                {`${TOTAL_LABEL}${getCartTotal().toFixed(2)}`}
               </CartTotal>
               <CheckoutButton onClick={openCheckout}>
                 {CHECKOUT_ACTION_TEXT}

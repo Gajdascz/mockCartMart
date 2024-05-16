@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Icon from '../../../components/Icon/Icon';
+import Icon from '../../../../components/Icon/Icon';
 
 const ProductRatingWrapper = styled.div`
   display: flex;

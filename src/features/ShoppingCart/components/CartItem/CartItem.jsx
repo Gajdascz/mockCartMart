@@ -7,7 +7,7 @@ import {
   ITEM_PRICE_LABEL,
   QUANTITY_LABEL,
   TOTAL_LABEL,
-} from './constants';
+} from './config';
 const ItemContainer = styled.div`
   display: flex;
   border: var(--border);

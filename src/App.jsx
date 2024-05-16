@@ -1,18 +1,17 @@
-import { light, dark } from './styles/themes';
-import styled, { ThemeProvider, css } from 'styled-components';
-import GlobalStyle from './styles/GlobalStyle';
-
-import ShopHeader from './features/ShopHeader/ShopHeader';
 import { useState } from 'react';
-import ShopFooter from './features/ShopFooter/ShopFooter';
-import CartButton from './features/ShoppingCart/ShoppingCart';
 import { Outlet } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
 
 import ProductProvider from './contexts/Products/ProductProvider';
 import CartProvider from './contexts/Cart/CartProvider';
-
 import Action from './components/Action/Action';
 import Icon from './components/Icon/Icon';
+import ShopHeader from './features/ShopHeader/ShopHeader';
+import ShopFooter from './features/ShopFooter/ShopFooter';
+import CartButton from './features/ShoppingCart/ShoppingCart';
+
+import { light, dark } from './styles/themes';
+import GlobalStyle from './styles/GlobalStyle';
 
 const Layout = styled.div`
   display: grid;

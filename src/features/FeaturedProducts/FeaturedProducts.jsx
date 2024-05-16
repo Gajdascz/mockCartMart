@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ProductCard from '../ProductCard/ProductCard';
 import { useProductContext } from '../../contexts/Products/ProductContext';
+import { PRODUCT_CATEGORIES, PRODUCT_SORT_QUALITIES } from './config';
 const Container = styled.div`
   background-color: var(--surface-2-color);
   color: var(--color-on-surface);
@@ -31,18 +32,8 @@ const CardsWrapper = styled.div`
 
 FeaturedProducts.propTypes = {
   headerText: PropTypes.string,
-  category: PropTypes.oneOf([
-    "men's clothing",
-    'jewelery',
-    'electronics',
-    "women's clothing",
-  ]),
-  quality: PropTypes.oneOf([
-    'Rating Score',
-    'Rating Count',
-    'Price Low-High',
-    'Price High-Low',
-  ]),
+  category: PropTypes.oneOf(...PRODUCT_SORT_QUALITIES),
+  quality: PropTypes.oneOf(PRODUCT_CATEGORIES),
   number: PropTypes.number,
 };
 

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import CartItem from './CartItem';
 import userEvent from '@testing-library/user-event';
-import { REMOVE_BUTTON_TEXT, ITEM_PRICE_LABEL, TOTAL_LABEL } from './constants';
+import { REMOVE_BUTTON_TEXT, ITEM_PRICE_LABEL, TOTAL_LABEL } from './config';
 const mockSetItemQuantity = vi.fn();
 
 const mockProduct = {

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { useCartContext } from '../../contexts/Cart/CartContext';
-import ProductRating from './components/ProductRating';
+import ProductRating from './components/ProductRating/ProductRating';
 import QuantityInput from '../QuantityInput/QuantityInput';
-import AddToCartButton from './components/AddToCartButton';
+import AddToCartButton from './components/AddToCartButton/AddToCartButton';
 
 const Card = styled.div`
   display: flex;

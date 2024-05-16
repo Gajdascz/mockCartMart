@@ -4,6 +4,13 @@ import { useProductContext } from '../../../contexts/Products/ProductContext';
 import OptionsMenu from '../../OptionsMenu/OptionsMenu';
 import ProductCard from '../../ProductCard/ProductCard';
 import Action from '../../../components/Action/Action';
+import {
+  CATEGORIES_SELECT_DEFAULT_TEXT,
+  CLEAR_ACTION_TEXT,
+  SEARCH_PLACEHOLDER_TEXT,
+  SORT_OPTIONS,
+  SORT_SELECT_DEFAULT_TEXT,
+} from './config';
 
 const ProductPageContainer = styled.div`
   max-width: 100vw;
@@ -121,10 +128,13 @@ export default function ShopPage() {
   return (
     <ProductPageContainer>
       <ProductUtils>
-        <SearchInput placeholder="Search Products" onChange={onSearchInput} />
+        <SearchInput
+          placeholder={SEARCH_PLACEHOLDER_TEXT}
+          onChange={onSearchInput}
+        />
         <OptionMenusContainer>
           <OptionsMenu
-            defaultText="Categories"
+            defaultText={CATEGORIES_SELECT_DEFAULT_TEXT}
             isMultiSelect={true}
             selected={categories}
             onSelected={onCategoriesUpdate}
@@ -135,20 +145,15 @@ export default function ShopPage() {
             }, [])}
           />
           <OptionsMenu
-            defaultText="Sort"
+            defaultText={SORT_SELECT_DEFAULT_TEXT}
             isMultiSelect={false}
             selected={sortBy}
             onSelected={onSortUpdate}
-            options={[
-              'Rating Score',
-              'Rating Count',
-              'Price Low-High',
-              'Price High-Low',
-            ]}
+            options={SORT_OPTIONS}
           />
         </OptionMenusContainer>
         <ClearButton type="button" onClick={clear}>
-          Clear
+          {CLEAR_ACTION_TEXT}
         </ClearButton>
       </ProductUtils>
       <ProductListWrapper>

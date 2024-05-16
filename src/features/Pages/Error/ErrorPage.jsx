@@ -1,5 +1,6 @@
 import Action from '../../../components/Action/Action';
 import styled from 'styled-components';
+import { ERROR_MESSAGE, HOME_ACTION_TEXT, SHOP_ACTION_TEXT } from './config';
 
 const Container = styled.div`
   display: flex;
@@ -27,12 +28,12 @@ export default function ErrorPage() {
   return (
     <Container>
       <ContentWrapper>
-        <Header>You seem a little lost</Header>
+        <Header>{ERROR_MESSAGE}</Header>
         <Action type="link" to="/products">
-          Shop
+          {SHOP_ACTION_TEXT}
         </Action>
         <Action type="link" to="/">
-          Home
+          {HOME_ACTION_TEXT}
         </Action>
       </ContentWrapper>
     </Container>

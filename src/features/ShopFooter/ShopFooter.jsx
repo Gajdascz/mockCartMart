@@ -1,6 +1,7 @@
 import Action from '../../components/Action/Action';
 import Icon from '../../components/Icon/Icon';
 import styled from 'styled-components';
+import { COPYRIGHT, GH_LINK, GH_LINK_ARIA } from './config';
 
 const Footer = styled.footer`
   background-color: var(--surface-2-color);
@@ -35,12 +36,8 @@ const FooterIcon = styled(Icon)`
 export default function ShopFooter({ ...rest }) {
   return (
     <Footer {...rest}>
-      <Copyright>&copy; 2024 Nolan Gajdascz</Copyright>
-      <FooterAction
-        type="a"
-        href="https://github.com/Gajdascz"
-        aria-label="Opens Github profile in new tab"
-      >
+      <Copyright>{COPYRIGHT}</Copyright>
+      <FooterAction type="a" href={GH_LINK} aria-label={GH_LINK_ARIA}>
         <FooterIcon type="gitHub" aria-hidden={true} />
       </FooterAction>
     </Footer>

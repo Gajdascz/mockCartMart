@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Action from '../../components/Action/Action';
+import { ARIA_LABEL, ARIA_ROLE, HAMBURGER_SYMBOL } from './config';
 
 const HamburgerContainer = styled.div`
   position: relative;
@@ -54,15 +55,15 @@ export default function HamburgerMenu({
     <HamburgerContainer
       ref={menuRef}
       $BREAK_WIDTH={BREAK_WIDTH}
-      role="navigation"
-      aria-label="Navigation Menu"
+      role={ARIA_ROLE}
+      aria-label={ARIA_LABEL}
     >
       <HamburgerMenuButton
         type="button"
         onClick={toggleHamburger}
         aria-expanded={isHamburgerOpen}
       >
-        &#9776;
+        {HAMBURGER_SYMBOL}
       </HamburgerMenuButton>
       {isHamburgerOpen && <HamburgerDropdown>{children}</HamburgerDropdown>}
     </HamburgerContainer>

@@ -2,9 +2,8 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ProductRating from './ProductRating';
 
-vi.mock('../../../components/Icon/Icon.jsx', () => ({
+vi.mock('../../../../components/Icon/Icon.jsx', () => ({
   default: (props) => {
-    console.log(props);
     return <div {...props} data-testid={props.type} />;
   },
 }));

@@ -1,23 +1,25 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import FeaturedProducts from './FeaturedProducts';
-import MockProductProvider from '../../../test/mocks/products/MockProductProvider';
 
-vi.mock('../../features/Product/ProductCard.jsx', () => ({
+import MockProductProvider from '../../../test/mocks/products/MockProductProvider';
+import MockCartProvider from '../../../test/mocks/cart/MockCartProvider';
+import FeaturedProducts from './FeaturedProducts';
+
+vi.mock('../ProductCard/ProductCard.jsx', () => ({
   default: (props) => {
     return (
-      <div
-        data-testid="productCard"
-        {...props}
-        data-price={props.productData.price}
-      />
+      <div data-testid="productCard" data-price={props.productData.price} />
     );
   },
 }));
 
 describe('FeaturedProducts feature', () => {
   const renderWithProvider = (ui) =>
-    render(<MockProductProvider>{ui}</MockProductProvider>);
+    render(
+      <MockCartProvider>
+        <MockProductProvider>{ui}</MockProductProvider>
+      </MockCartProvider>,
+    );
   it('Renders correctly', () => {
     renderWithProvider(
       <FeaturedProducts data-testid="featuredProductsContainer" />,

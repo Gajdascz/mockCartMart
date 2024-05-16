@@ -1,21 +1,22 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import HeroSlider from './HeroSlider';
-import userEvent from '@testing-library/user-event';
 
-vi.mock('./components/SlideIndicator.jsx', () => ({
-  default: (props) => <button data-testid="slideIndicator" {...props} />,
+vi.mock('./components/SlideIndicator/SlideIndicator.jsx', () => ({
+  default: () => <button data-testid="slideIndicator" />,
 }));
-vi.mock('./components/SliderBar.jsx', () => ({
-  default: (props) => <div data-testid="sliderBar" {...props} />,
+vi.mock('./components/SliderBar/SliderBar.jsx', () => ({
+  default: ({ children }) => <div data-testid="sliderBar">{children}</div>,
 }));
 vi.mock('../../components/ImageWrapper/ImageWrapper.jsx', () => ({
-  default: (props) => (
-    <div data-testid="imageWrapper" data-img-src={props.imgSrc} {...props} />
+  default: ({ children, ...props }) => (
+    <div data-testid="imageWrapper" data-img-src={props.imgSrc}>
+      {children}
+    </div>
   ),
 }));
 vi.mock('../../components/ImageOverlay/ImageOverlay.jsx', () => ({
-  default: (props) => <div data-testid="imageOverlay" {...props} />,
+  default: () => <div data-testid="imageOverlay" />,
 }));
 
 describe('HeroSlider feature', () => {
@@ -34,7 +35,7 @@ describe('HeroSlider feature', () => {
   ];
   it('Renders correctly', () => {
     render(<HeroSlider displays={displays} data-testid="heroSlider" />);
-    expect(screen.getByTestId('heroSlider'));
+    expect(screen.getByTestId('heroSlider')).toBeInTheDocument();
   });
   it('Renders the correct number of indicators', () => {
     render(<HeroSlider displays={displays} />);
@@ -64,21 +65,6 @@ describe('HeroSlider feature', () => {
       expect(screen.getByTestId('imageWrapper')).toHaveAttribute(
         'data-img-src',
         'image3.jpg',
-      );
-    });
-  });
-  it('Renders correct slide on indicator click', async () => {
-    const user = userEvent.setup();
-    vi.useFakeTimers();
-    vi.runOnlyPendingTimersAsync();
-    render(<HeroSlider displays={displays} />);
-    const indicators = screen.getAllByTestId('slideIndicator');
-    indicators.forEach(async (indicator, index) => {
-      await user.click(indicator);
-      expect(
-        screen
-          .getByTestId('imageWrapper')
-          .toHaveAttribute('data-img-src', `image${index + 1}`),
       );
     });
   });

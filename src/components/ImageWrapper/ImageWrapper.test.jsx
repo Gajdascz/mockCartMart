@@ -5,8 +5,8 @@ import ImageWrapper from './ImageWrapper';
 describe('ImageWrapper component', () => {
   it('Renders correctly', () => {
     render(
-      <ImageWrapper imgSrc={'test.jpg'} data-testId={'imageWrapper'}>
-        <div>Child</div>{' '}
+      <ImageWrapper imgSrc={'test.jpg'} data-testid={'imageWrapper'}>
+        <div>Child</div>
       </ImageWrapper>,
     );
     const wrapper = screen.getByTestId('imageWrapper');

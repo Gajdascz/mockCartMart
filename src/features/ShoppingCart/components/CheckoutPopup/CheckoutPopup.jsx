@@ -1,7 +1,20 @@
-import styled, { css } from 'styled-components';
-import Backdrop from '../../../../components/Backdrop/Backdrop';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
+import styled, { css } from 'styled-components';
+
+import Backdrop from '../../../../components/Backdrop/Backdrop';
 import Action from '../../../../components/Action/Action';
+import {
+  CANCEL_ACTION_TEXT,
+  CLOSE_ACTION_TEXT,
+  EMAIL_INPUT_PLACEHOLDER,
+  EMAIL_PATTERN,
+  ENTER_EMAIL_MESSAGE,
+  FINALIZED_MESSAGE,
+  FINALIZE_ACTION_TEXT,
+  REVIEW_ORDER_ACTION_TEXT,
+} from './config';
+
 const Container = styled.div`
   position: absolute;
   top: 50%;
@@ -25,19 +38,22 @@ const Container = styled.div`
     $isFinalized ? 'var(--color-success)' : 'var(--border-color)'};
 `;
 
-const PopupButton = styled(Action)``;
+const PopupButton = styled(Action)`
+  border: 1px solid var(--color-primary);
+`;
 
 const DisabledFinalize = css`
   color: var(--color-on-disabled);
   background-color: var(--color-disabled);
   box-shadow: none;
   transition: none;
+  border-color: var(--color-on-disabled);
   cursor: default;
   &:hover,
   &:focus {
     color: var(--color-on-disabled);
     background-color: var(--color-disabled);
-    border-color: var(--border-color);
+    border-color: var(--color-on-disabled);
     box-shadow: none;
   }
   &:hover > p {
@@ -54,6 +70,14 @@ const FinalizeButton = styled(PopupButton)`
 const EmailInput = styled.input`
   cursor: text;
   padding: var(--space-small);
+  border-radius: var(--border-radius);
+  border: 3px solid
+    ${({ $isValid }) =>
+      $isValid === true
+        ? 'var(--color-success)'
+        : $isValid === false
+          ? 'var(--color-error)'
+          : 'var(--color-primary)'};
 `;
 
 const ButtonContainer = styled.div`
@@ -71,13 +95,18 @@ const EmailInputWrapper = styled.div`
   gap: var(--space-small);
 `;
 
-export default function CheckoutPopup({ onCheckout, onClose }) {
-  const [isEmailValid, setIsEmailValid] = useState(false);
+CheckoutPopup.propTypes = {
+  onCheckout: PropTypes.func,
+  onClose: PropTypes.func,
+};
+
+export default function CheckoutPopup({ onCheckout, onClose, ...rest }) {
+  const [isEmailValid, setIsEmailValid] = useState(null);
   const [isFinalized, setIsFinalized] = useState(false);
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const onEmailInput = (e) => {
-    const value = e.target.value;
-    setIsEmailValid(emailPattern.test(value));
+    const value = e.target.value.trim();
+    if (value === '') setIsEmailValid(null);
+    else setIsEmailValid(EMAIL_PATTERN.test(value));
   };
 
   const onFinalize = () => {
@@ -86,14 +115,15 @@ export default function CheckoutPopup({ onCheckout, onClose }) {
   };
   return (
     <Backdrop onClick={onClose}>
-      <Container $isFinalized={isFinalized}>
+      <Container $isFinalized={isFinalized} {...rest}>
         {!isFinalized ? (
           <>
             <EmailInputWrapper>
-              <h3>Please enter an email to receive your receipt</h3>
+              <h3>{ENTER_EMAIL_MESSAGE}</h3>
               <EmailInput
-                placeholder="example@email.com"
+                placeholder={EMAIL_INPUT_PLACEHOLDER}
                 onChange={onEmailInput}
+                $isValid={isEmailValid}
               />
             </EmailInputWrapper>
             <ButtonContainer>
@@ -103,17 +133,23 @@ export default function CheckoutPopup({ onCheckout, onClose }) {
                 disabled={!isEmailValid}
                 onClick={onFinalize}
               >
-                Finalize
+                {FINALIZE_ACTION_TEXT}
               </FinalizeButton>
-              <PopupButton onClick={onClose}>Cancel</PopupButton>
+              <PopupButton type="button" onClick={onClose}>
+                {CANCEL_ACTION_TEXT}
+              </PopupButton>
             </ButtonContainer>
           </>
         ) : (
           <>
-            <h3>Thank you for your order!</h3>
+            <h3>{FINALIZED_MESSAGE}</h3>
             <ButtonContainer>
-              <PopupButton onClick={onClose}>Review Order</PopupButton>
-              <PopupButton onClick={onClose}>Close</PopupButton>
+              <PopupButton type="button" onClick={onClose}>
+                {REVIEW_ORDER_ACTION_TEXT}
+              </PopupButton>
+              <PopupButton type="button" onClick={onClose}>
+                {CLOSE_ACTION_TEXT}
+              </PopupButton>
             </ButtonContainer>
           </>
         )}

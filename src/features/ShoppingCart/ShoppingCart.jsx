@@ -1,9 +1,11 @@
 import { useState } from 'react';
+
+import { useCartContext } from '../../contexts/Cart/CartContext';
 import CartSidebar from './components/CartSidebar/CartSidebar';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import CartButton from './components/CartButton/CartButton';
 import CheckoutPopup from './components/CheckoutPopup/CheckoutPopup';
-import { useCartContext } from '../../contexts/Cart/CartContext';
+
 const ANIMATION_TIME = 500;
 
 export default function ShoppingCart() {
@@ -43,7 +45,7 @@ export default function ShoppingCart() {
         <Backdrop onClick={toggleSidebar}>
           <CartSidebar
             onClose={toggleSidebar}
-            isOpen={isSidebarOpen}
+            // isOpen={isSidebarOpen}
             openCheckout={onOpenCheckout}
             animatingStatus={animatingStatus}
             animationTime={`${ANIMATION_TIME / 1000}s`}

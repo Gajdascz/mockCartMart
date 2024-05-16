@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import MenuHead from './components/MenuHead';
-import OptionsList from './components/OptionsList';
+import MenuHead from './components/MenuHead/MenuHead';
+import OptionsList from './components/OptionsList/OptionsList';
 
 const MenuContainer = styled.div`
   color: var(--color-on-surface);

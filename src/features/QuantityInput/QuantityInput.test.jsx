@@ -2,6 +2,11 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import QuantityInput from './QuantityInput';
+import {
+  DECREASE_ARIA_LABEL,
+  INCREASE_ARIA_LABEL,
+  INPUT_ARIA_LABEL,
+} from './config';
 
 const mockOnQuantityChange = vi.fn((newQuantity) => newQuantity);
 
@@ -24,7 +29,7 @@ describe('ProductCard feature', () => {
       it('Within bounds', async () => {
         render(<QuantityInput {...props} />);
         const user = userEvent.setup();
-        const addButton = screen.getByLabelText('Increase quantity');
+        const addButton = screen.getByLabelText(INCREASE_ARIA_LABEL);
         await user.click(addButton);
         expect(mockOnQuantityChange).toHaveBeenCalledWith(props.quantity + 1);
       });
@@ -32,7 +37,7 @@ describe('ProductCard feature', () => {
         const newProps = { ...props, quantity: props.max };
         render(<QuantityInput {...newProps} />);
         const user = userEvent.setup();
-        const addButton = screen.getByLabelText('Increase quantity');
+        const addButton = screen.getByLabelText(INCREASE_ARIA_LABEL);
         await user.click(addButton);
         expect(mockOnQuantityChange).toHaveBeenCalledWith(props.max);
       });
@@ -42,7 +47,7 @@ describe('ProductCard feature', () => {
         const newProps = { ...props, quantity: 1 };
         render(<QuantityInput {...newProps} />);
         const user = userEvent.setup();
-        const addButton = screen.getByLabelText('Decrease quantity');
+        const addButton = screen.getByLabelText(DECREASE_ARIA_LABEL);
         await user.click(addButton);
         expect(mockOnQuantityChange).toHaveBeenCalledWith(
           newProps.quantity - 1,
@@ -52,7 +57,7 @@ describe('ProductCard feature', () => {
         const newProps = { ...props, quantity: props.min };
         render(<QuantityInput {...newProps} />);
         const user = userEvent.setup();
-        const addButton = screen.getByLabelText('Decrease quantity');
+        const addButton = screen.getByLabelText(DECREASE_ARIA_LABEL);
         await user.click(addButton);
         expect(mockOnQuantityChange).toHaveBeenCalledWith(newProps.min);
       });
@@ -61,14 +66,14 @@ describe('ProductCard feature', () => {
       it('Within bounds', async () => {
         render(<QuantityInput {...props} />);
         const user = userEvent.setup();
-        const input = screen.getByLabelText('Quantity input');
+        const input = screen.getByLabelText(INPUT_ARIA_LABEL);
         await user.type(input, '2');
         expect(mockOnQuantityChange).toHaveBeenCalledWith(2);
       });
       it('Prevents out of bounds', async () => {
         render(<QuantityInput {...props} />);
         const user = userEvent.setup();
-        const input = screen.getByLabelText('Quantity input');
+        const input = screen.getByLabelText(INPUT_ARIA_LABEL);
         await user.type(input, `${props.min - 1}`);
         expect(mockOnQuantityChange).toHaveBeenCalledWith(props.min);
         await user.type(input, `${props.max + 1}`);
