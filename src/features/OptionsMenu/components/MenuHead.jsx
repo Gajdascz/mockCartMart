@@ -7,10 +7,11 @@ const MenuHeadContainer = styled.div`
   align-items: center;
   padding: var(--space-small);
   min-width: 100px;
+  border: 1px solid var(--color-primary);
+  border-bottom: ${({ $isOpen }) => ($isOpen ? 'none' : null)};
   &:hover {
-    background-color: var(--color-on-secondary);
     color: var(--color-secondary);
-    box-shadow: var(--surface-4-shadow);
+    box-shadow: var(--surface-5-shadow);
     > svg {
       fill: var(--color-secondary);
     }
@@ -26,7 +27,7 @@ const DropdownChevron = styled(Icon)`
 
 const CurrentSelect = styled.p`
   color: ${({ $isDefault }) =>
-    $isDefault ? 'var(--color-text-disabled)' : 'var(--color-secondary)'};
+    $isDefault ? 'var(--color-on-disabled)' : 'var(--color-on-surface)'};
   max-width: 100%;
   overflow: hidden;
   white-space: nowrap;

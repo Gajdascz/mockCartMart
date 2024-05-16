@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Action from './Action/Action';
+import Action from '../../components/Action/Action';
 
 import styled from 'styled-components';
+import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 
 const BREAK_WIDTH = '750px';
 
@@ -10,9 +11,8 @@ const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--surface-2-color);
-  box-shadow: var(--surface-2-shadow);
-  color: var(--color-primary);
+  background-color: var(--surface-3-color);
+  box-shadow: var(--surface-3-shadow);
   max-width: 100vw;
   padding-left: var(--space-large);
   padding-right: var(--space-large);
@@ -28,19 +28,8 @@ const HeaderMainWrapper = styled.div`
 `;
 
 const LogoLinkWrapper = styled(Action)`
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-primary);
-  border: none;
-  box-shadow: none;
-  transition: transform ease-out 0.25s;
-  &:hover,
-  &:focus {
-    border: none;
-    transform: scale(1.05);
-  }
+  color: var(--color-on-surface);
+
   @media (max-width: ${BREAK_WIDTH}) {
     display: none;
   }
@@ -62,54 +51,31 @@ const LinksContainer = styled.div`
   }
 `;
 const NavLink = styled(Action)`
-  text-decoration: none;
+  width: 75px;
   color: var(--color-on-surface);
-  padding: var(--space-small);
-  border-radius: var(--border-radius);
-  width: 100px;
-  &:hover {
-    color: var(--color-secondary);
-    background: var(--color-on-secondary);
-  }
-`;
-
-const HamburgerContainer = styled.div`
-  position: relative;
-  display: none;
-  @media (max-width: ${BREAK_WIDTH}) {
-    display: block;
-  }
-`;
-
-const HamburgerMenuButton = styled(Action)`
-  box-shadow: none;
-  position: relative;
-  z-index: 1;
-  font-size: 2rem;
-`;
-const HamburgerDropdown = styled.nav`
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-medium);
-  position: absolute;
-  left: 0%;
-  top: 105%;
-  background-color: var(--surface-0-color);
-  border-radius: var(--border-radius);
-  padding: var(--space-medium);
-  box-shadow: var(--surface-4-shadow);
-  z-index: 100;
-  & > ${NavLink} {
-    font-size: 1.25rem;
-    width: 200px;
-  }
 `;
 
 ShopHeader.propTypes = {
   children: PropTypes.node,
 };
 
-export default function ShopHeader({ logoText, links, icons }) {
+ShopHeader.propTypes = {
+  logoText: PropTypes.string,
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      to: PropTypes.string,
+      text: PropTypes.string,
+    }),
+  ),
+  icons: PropTypes.arrayOf(PropTypes.node),
+};
+
+export default function ShopHeader({
+  logoText,
+  links = [],
+  icons = [],
+  ...rest
+}) {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const menuRef = useRef();
   const toggleHamburger = () => setIsHamburgerOpen((prev) => !prev);
@@ -133,28 +99,28 @@ export default function ShopHeader({ logoText, links, icons }) {
     return removeListeners;
   }, [isHamburgerOpen]);
   return (
-    <HeaderContainer>
+    <HeaderContainer {...rest}>
       <HeaderMainWrapper>
-        <HamburgerContainer ref={menuRef}>
-          <HamburgerMenuButton type="button" onClick={toggleHamburger}>
-            &#9776;
-          </HamburgerMenuButton>
-          {isHamburgerOpen && (
-            <HamburgerDropdown>
-              <NavLink key={'homeLink'} to="/" type="navLink">
-                Home
-              </NavLink>
-              {links.map((link, index) => (
-                <NavLink key={index} to={link.to} type={'navLink'}>
-                  {link.text}
-                </NavLink>
-              ))}
-            </HamburgerDropdown>
-          )}
-        </HamburgerContainer>
-        <LogoLinkWrapper to="/" type="link">
-          <LogoText>{logoText}</LogoText>
-        </LogoLinkWrapper>
+        <HamburgerMenu
+          menuRef={menuRef}
+          toggleHamburger={toggleHamburger}
+          isHamburgerOpen={isHamburgerOpen}
+          BREAK_WIDTH={BREAK_WIDTH}
+        >
+          <NavLink key={'homeLink'} to="/" type="navLink">
+            Home
+          </NavLink>
+          {links.map((link, index) => (
+            <NavLink key={index} to={link.to} type={'navLink'}>
+              {link.text}
+            </NavLink>
+          ))}
+        </HamburgerMenu>
+        {logoText && (
+          <LogoLinkWrapper to="/" type="link">
+            <LogoText>{logoText}</LogoText>
+          </LogoLinkWrapper>
+        )}
         <LinksContainer>
           {links.map((link, index) => (
             <NavLink key={index} to={link.to} type={'navLink'}>

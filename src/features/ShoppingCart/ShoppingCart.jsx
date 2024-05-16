@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import CartSidebar from './components/CartSidebar';
+import CartSidebar from './components/CartSidebar/CartSidebar';
 import Backdrop from '../../components/Backdrop/Backdrop';
-import CartButton from './components/CartButton';
-import CheckoutPopup from './components/CheckoutPopup';
+import CartButton from './components/CartButton/CartButton';
+import CheckoutPopup from './components/CheckoutPopup/CheckoutPopup';
 import { useCartContext } from '../../contexts/Cart/CartContext';
 const ANIMATION_TIME = 500;
 
@@ -11,7 +11,7 @@ export default function ShoppingCart() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [animatingStatus, setAnimatingStatus] = useState(null);
 
-  const { clearCart } = useCartContext();
+  const { clearCart, itemsInCart } = useCartContext();
 
   const openSidebar = () => {
     setAnimatingStatus('opening');
@@ -38,7 +38,7 @@ export default function ShoppingCart() {
 
   return (
     <>
-      <CartButton onClick={toggleSidebar} />
+      <CartButton onClick={toggleSidebar} itemsInCart={itemsInCart.length} />
       {(isSidebarOpen || animatingStatus) && (
         <Backdrop onClick={toggleSidebar}>
           <CartSidebar

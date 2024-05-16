@@ -1,8 +1,7 @@
 const light = {
   colors: {
     primary: '#6200EE',
-    primaryVariant: '#3700B3',
-    secondary: '#03DAC6',
+    secondary: '#2600FF',
     error: '#B00020',
     success: `#18632B`,
     border: '#E0E0E0',
@@ -47,8 +46,7 @@ const light = {
 const dark = {
   colors: {
     primary: '#BB86FC',
-    primaryVariant: '#3700B3',
-    secondary: '#03DAC6',
+    secondary: '#868CFF',
     error: '#CF6679',
     success: `#2AAC48`,
     border: '#383838',

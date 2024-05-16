@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import Backdrop from '../../../components/Backdrop/Backdrop';
+import Backdrop from '../../../../components/Backdrop/Backdrop';
 import { useState } from 'react';
-import Action from '../../../components/Action/Action';
+import Action from '../../../../components/Action/Action';
 const Container = styled.div`
   position: absolute;
   top: 50%;

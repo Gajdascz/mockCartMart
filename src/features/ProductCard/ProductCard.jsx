@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import ProductRating from './ProductRating';
-import Action from '../../components/Action/Action';
-import QuantityInput from '../QuantityInput/QuantityInput';
 import styled from 'styled-components';
+
 import { useCartContext } from '../../contexts/Cart/CartContext';
-import AddToCartButton from './AddToCartButton';
+import ProductRating from './components/ProductRating';
+import QuantityInput from '../QuantityInput/QuantityInput';
+import AddToCartButton from './components/AddToCartButton';
+
 const Card = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -72,7 +73,7 @@ const QuantityAddToCartWrapper = styled.div`
   max-width: 100%;
 `;
 const CardQuantityInput = styled(QuantityInput)`
-  width: 30%;
+  max-width: 33%;
 `;
 
 ProductCard.propTypes = {
@@ -87,7 +88,7 @@ ProductCard.propTypes = {
     }),
     description: PropTypes.string,
   }),
-  onAddToCart: PropTypes.func,
+  hideDesc: PropTypes.bool,
 };
 export default function ProductCard({ productData, hideDesc, ...rest }) {
   const [quantity, setQuantity] = useState(1);
@@ -97,7 +98,7 @@ export default function ProductCard({ productData, hideDesc, ...rest }) {
   const handleAddToCart = () => {
     const result = addToCart({ id, image, title, price, quantity });
     setAddStatus(result);
-    setTimeout(() => setAddStatus(false), 3000);
+    setTimeout(() => setAddStatus(false), 2500);
   };
   return (
     <Card {...rest}>

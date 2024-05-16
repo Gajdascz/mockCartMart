@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Action from '../Action/Action';
 
 const Container = styled.div`
-  background-color: #ffffffcc;
+  background-color: var(--surface-1-color);
+  color: var(--color-on-surface);
   border-radius: var(--border-radius);
   border: var(--border);
   padding: 1em;
@@ -19,9 +20,11 @@ const Container = styled.div`
 `;
 
 const OverlayAction = styled(Action)`
-  width: 75%;
-  background-color: var(--surface-1-color);
-  border: var(--border);
+  width: 33%;
+  padding-top: var(--space-medium);
+  padding-bottom: var(--space-medium);
+  background-color: var(--surface-5-color);
+  border: 2px solid var(--color-primary);
 `;
 
 ImageOverlay.propTypes = {

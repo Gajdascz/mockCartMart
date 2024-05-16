@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
-import Action from '../../../components/Action/Action';
-import CartItem from './CartItem';
-import Icon from '../../../components/Icon/Icon';
-import { useCartContext } from '../../../contexts/Cart/CartContext';
-import CheckoutPopup from './CheckoutPopup';
-
+import Action from '../../../../components/Action/Action';
+import CartItem from '../CartItem/CartItem';
+import Icon from '../../../../components/Icon/Icon';
+import { useCartContext } from '../../../../contexts/Cart/CartContext';
+import {
+  EMPTY_CART_MESSAGE,
+  SHOP_ACTION_TEXT,
+  TOTAL_LABEL,
+  CHECKOUT_ACTION_TEXT,
+} from './constants';
 const slideIn = keyframes`
 0% {
   transform: translateX(100%);
@@ -39,10 +43,15 @@ const Sidebar = styled.div`
     $animatingStatus === 'opening' &&
     css`
       animation: ${slideIn} ${({ $animationTime }) => $animationTime} forwards;
-    `}
+    `};
 
-
-  @media (max-width: 700px) {
+  @media (min-width: 1024px) {
+    width: 40%;
+  }
+  @media (max-width: 800px) {
+    width: 60%;
+  }
+  @media (max-width: 600px) {
     width: 100%;
   }
 `;
@@ -56,10 +65,13 @@ const CloseButton = styled(Action)`
   padding: 0;
   width: 33%;
   min-width: fit-content;
+  border: 1px solid var(--color-primary);
 `;
 const ClearButton = styled(Action)`
   width: 33%;
   min-width: fit-content;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 `;
 
 const BodyContainer = styled.div`
@@ -90,10 +102,15 @@ const NoItemsInCart = styled.div`
   gap: var(--space-small);
   height: 100%;
   justify-content: center;
-  & > p {
-    font-size: 1.5rem;
-    text-align: center;
+  align-items: center;
+  & > a {
+    border: 1px solid var(--color-primary);
+    width: 33%;
   }
+`;
+const NoItemsInCartMessage = styled.p`
+  font-size: 1.5rem;
+  text-align: center;
 `;
 
 const CheckoutSection = styled.div`
@@ -109,8 +126,7 @@ const CheckoutSection = styled.div`
 
 const CheckoutButton = styled(Action)`
   width: 50%;
-  background-color: var(--surface-4-color);
-  box-shadow: var(--surface-4-shadow);
+  border: 1px solid var(--color-primary);
 `;
 
 const CartTotal = styled.p`
@@ -145,12 +161,9 @@ export default function CartSidebar({
       <BodyContainer>
         {itemsInCart.length === 0 ? (
           <NoItemsInCart>
-            <p>
-              Your cart is empty. Explore our shop and find something
-              that&apos;s right for you!
-            </p>
+            <NoItemsInCartMessage>{EMPTY_CART_MESSAGE}</NoItemsInCartMessage>
             <Action type="link" to="/products" onClick={onClose}>
-              Shop Now
+              {SHOP_ACTION_TEXT}
             </Action>
           </NoItemsInCart>
         ) : (
@@ -165,8 +178,12 @@ export default function CartSidebar({
               ))}
             </ItemsContainer>
             <CheckoutSection>
-              <CartTotal>Total: ${getCartTotal().toFixed(2)}</CartTotal>
-              <CheckoutButton onClick={openCheckout}>Checkout</CheckoutButton>
+              <CartTotal>
+                {`${TOTAL_LABEL} $${getCartTotal().toFixed(2)}`}
+              </CartTotal>
+              <CheckoutButton onClick={openCheckout}>
+                {CHECKOUT_ACTION_TEXT}
+              </CheckoutButton>
             </CheckoutSection>
           </>
         )}

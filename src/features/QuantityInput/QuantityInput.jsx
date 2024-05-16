@@ -6,9 +6,8 @@ import Action from '../../components/Action/Action';
 const Container = styled.div`
   display: flex;
   font-size: 1.25rem;
-  background-color: var(--surface-3-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--surface-3-shadow);
+  max-width: 100%;
+  min-width: 100px;
 `;
 const Input = styled.input`
   &::-webkit-outer-spin-button,
@@ -17,33 +16,29 @@ const Input = styled.input`
     margin: 0;
   }
   cursor: text;
-  width: min-content;
   text-align: center;
   background-color: inherit;
+  padding: var(--space-small);
   color: var(--color-on-surface);
   border: var(--border);
   overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  max-width: 100px;
 `;
 const QuantityChangeButton = styled(Action)`
   padding: 0.5em;
   color: var(--color-primary);
-  background-color: inherit;
-  border: none;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid transparent;
-  border-radius: 0;
+  background-color: var(--surface-4-color);
+  border: var(--border);
+  font-size: 1.5rem;
   overflow: hidden;
   box-shadow: none;
   &:first-of-type {
-    border-top-left-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
   }
   &:last-of-type {
-    border-top-right-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
   }
   &::selection {
     color: inherit;
@@ -74,7 +69,12 @@ export default function QuantityInput({
   };
   return (
     <Container {...rest}>
-      <QuantityChangeButton onClick={handleAddOne}>+</QuantityChangeButton>
+      <QuantityChangeButton
+        onClick={handleAddOne}
+        aria-label="Increase quantity"
+      >
+        +
+      </QuantityChangeButton>
       <Input
         type="number"
         pattern="[0-9]"
@@ -82,8 +82,14 @@ export default function QuantityInput({
         value={quantity === 0 ? '' : quantity}
         min={min}
         max={max}
+        aria-label="Quantity input"
       />
-      <QuantityChangeButton onClick={handleRemoveOne}>-</QuantityChangeButton>
+      <QuantityChangeButton
+        onClick={handleRemoveOne}
+        aria-label="Decrease quantity"
+      >
+        -
+      </QuantityChangeButton>
     </Container>
   );
 }

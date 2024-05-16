@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Action from '../../../components/Action/Action';
-import QuantityInput from '../../QuantityInput/QuantityInput';
+import Action from '../../../../components/Action/Action';
+import QuantityInput from '../../../QuantityInput/QuantityInput';
+import {
+  REMOVE_BUTTON_TEXT,
+  ITEM_PRICE_LABEL,
+  QUANTITY_LABEL,
+  TOTAL_LABEL,
+} from './constants';
 const ItemContainer = styled.div`
   display: flex;
   border: var(--border);
@@ -45,6 +51,8 @@ const ItemTitle = styled.h4`
 const ItemRemoveFromCartButton = styled(Action)`
   min-width: min-content;
   flex: 0.25;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 `;
 
 const ItemQuantityWrapper = styled.div`
@@ -56,7 +64,7 @@ const ItemQuantityWrapper = styled.div`
 const ItemQuantityLabel = styled.p``;
 
 const ItemQuantityInput = styled(QuantityInput)`
-  min-width: 5rem;
+  min-width: 100px;
   max-width: 33%;
   height: 60%;
 `;
@@ -86,34 +94,34 @@ export default function CartItem({
   price,
   quantity,
   setItemQuantity,
+  ...rest
 }) {
-  const handleRemove = () => {
-    console.log(id, quantity);
-    setItemQuantity({ id, quantity: 0 });
-  };
+  const handleRemove = () => setItemQuantity({ id, quantity: 0 });
 
   const onQuantityChange = (newQuantity) =>
     setItemQuantity({ id, quantity: newQuantity });
   return (
-    <ItemContainer>
+    <ItemContainer {...rest}>
       <ItemImage src={image} />
       <ItemBodyContainer>
         <ItemBodyHeader>
           <ItemTitle>{title}</ItemTitle>
           <ItemRemoveFromCartButton onClick={handleRemove}>
-            Remove
+            {REMOVE_BUTTON_TEXT}
           </ItemRemoveFromCartButton>
         </ItemBodyHeader>
-        <ItemPrice>PPU: ${price.toFixed(2)}</ItemPrice>
+        <ItemPrice>{`${ITEM_PRICE_LABEL}${price.toFixed(2)}`}</ItemPrice>
         <ItemQuantityWrapper>
-          <ItemQuantityLabel>Qty:</ItemQuantityLabel>
+          <ItemQuantityLabel>{QUANTITY_LABEL}</ItemQuantityLabel>
           <ItemQuantityInput
             quantity={quantity}
             min={0}
             onQuantityChange={onQuantityChange}
           />
         </ItemQuantityWrapper>
-        <ItemTotalPrice>Total: ${(price * quantity).toFixed(2)}</ItemTotalPrice>
+        <ItemTotalPrice>
+          {`${TOTAL_LABEL}${(price * quantity).toFixed(2)}`}
+        </ItemTotalPrice>
       </ItemBodyContainer>
     </ItemContainer>
   );

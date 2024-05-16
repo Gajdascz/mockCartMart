@@ -9,9 +9,8 @@ const BaseAction = styled.div`
   cursor: pointer;
   padding: var(--space-small);
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--surface-3-color);
-  box-shadow: var(--surface-3-shadow);
+  border: none;
+  background-color: var(--surface-5-color);
   color: var(--color-primary);
   text-decoration: none;
   font-weight: bold;
@@ -24,13 +23,16 @@ const BaseAction = styled.div`
   &:focus,
   &.active {
     color: var(--color-secondary);
-    background-color: var(--color-on-secondary);
     border-color: var(--color-secondary);
-    box-shadow: var(--surface-4-shadow);
+    box-shadow: var(--surface-5-shadow);
   }
   &:hover > svg,
   &:focus > svg {
     fill: var(--color-secondary);
+  }
+  &.active {
+    border: 1px solid var(--color-secondary);
+    cursor: default;
   }
   &:hover > p {
     color: var(--color-secondary);

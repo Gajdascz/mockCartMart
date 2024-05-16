@@ -1,5 +1,5 @@
-import Action from './Action/Action';
-import Icon from './Icon/Icon';
+import Action from '../../components/Action/Action';
+import Icon from '../../components/Icon/Icon';
 import styled from 'styled-components';
 
 const Footer = styled.footer`
@@ -32,12 +32,16 @@ const FooterIcon = styled(Icon)`
   }
 `;
 
-export default function ShopFooter() {
+export default function ShopFooter({ ...rest }) {
   return (
-    <Footer>
+    <Footer {...rest}>
       <Copyright>&copy; 2024 Nolan Gajdascz</Copyright>
-      <FooterAction type="a" href="https://github.com/Gajdascz">
-        <FooterIcon type="gitHub" />
+      <FooterAction
+        type="a"
+        href="https://github.com/Gajdascz"
+        aria-label="Opens Github profile in new tab"
+      >
+        <FooterIcon type="gitHub" aria-hidden={true} />
       </FooterAction>
     </Footer>
   );

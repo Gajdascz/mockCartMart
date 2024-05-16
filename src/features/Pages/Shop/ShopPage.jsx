@@ -1,30 +1,43 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { useProductContext } from '../../contexts/Products/ProductContext';
-import OptionsMenu from '../OptionsMenu/OptionsMenu';
-import ProductCard from '../Product/ProductCard';
-import Action from '../../components/Action/Action';
+import { useProductContext } from '../../../contexts/Products/ProductContext';
+import OptionsMenu from '../../OptionsMenu/OptionsMenu';
+import ProductCard from '../../ProductCard/ProductCard';
+import Action from '../../../components/Action/Action';
 
 const ProductPageContainer = styled.div`
   max-width: 100vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-medium);
 `;
 
 const ProductUtils = styled.section`
   background-color: var(--surface-3-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--surface-2-shadow);
   padding: var(--space-medium);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-medium);
+  max-width: 1024px;
+  width: 100%;
 `;
 const SearchInput = styled.input`
   cursor: text;
   flex: 1;
   padding: var(--space-small);
-  min-width: 250px;
+  min-width: 200px;
+  background-color: var(--surface-5-color);
+  border: none;
+  padding-bottom: 0;
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-on-surface);
+  &::placeholder {
+    color: var(--color-on-disabled);
+  }
 `;
 
 const OptionMenusContainer = styled.div`
@@ -45,7 +58,11 @@ const ProductListWrapper = styled.section`
     grid-template-columns: 1fr;
   }
 `;
-export default function ProductPage() {
+
+const ClearButton = styled(Action)`
+  border: 1px solid var(--color-primary);
+`;
+export default function ShopPage() {
   const { products, getSortedBy, getByCategory, searchProducts } =
     useProductContext();
   const [currentProducts, setCurrentProducts] = useState([...products]);
@@ -130,9 +147,9 @@ export default function ProductPage() {
             ]}
           />
         </OptionMenusContainer>
-        <Action type="button" onClick={clear}>
+        <ClearButton type="button" onClick={clear}>
           Clear
-        </Action>
+        </ClearButton>
       </ProductUtils>
       <ProductListWrapper>
         {currentProducts.map((product) => (

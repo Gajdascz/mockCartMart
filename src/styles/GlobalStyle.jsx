@@ -11,7 +11,6 @@ export default createGlobalStyle`
   :root {
     --color-background: ${({ theme }) => theme.colors.background};
     --color-primary: ${({ theme }) => theme.colors.primary};
-    --color-primary-variant: ${({ theme }) => theme.colors.primaryVariant};
     --color-secondary: ${({ theme }) => theme.colors.secondary};
     --color-error: ${({ theme }) => theme.colors.error};
     --color-success: ${({ theme }) => theme.colors.success};

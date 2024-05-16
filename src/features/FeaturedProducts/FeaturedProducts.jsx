@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ProductCard from '../Product/ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 import { useProductContext } from '../../contexts/Products/ProductContext';
 const Container = styled.div`
   background-color: var(--surface-2-color);

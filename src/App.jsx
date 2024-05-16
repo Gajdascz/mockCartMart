@@ -2,17 +2,17 @@ import { light, dark } from './styles/themes';
 import styled, { ThemeProvider, css } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 
-import ShopHeader from './components/ShopHeader';
-
+import ShopHeader from './features/ShopHeader/ShopHeader';
 import { useState } from 'react';
-import ShopFooter from './components/ShopFooter';
+import ShopFooter from './features/ShopFooter/ShopFooter';
 import CartButton from './features/ShoppingCart/ShoppingCart';
 import { Outlet } from 'react-router-dom';
 
-import ThemeToggleButton from './features/ThemeToggle/ThemeToggle';
-
 import ProductProvider from './contexts/Products/ProductProvider';
 import CartProvider from './contexts/Cart/CartProvider';
+
+import Action from './components/Action/Action';
+import Icon from './components/Icon/Icon';
 
 const Layout = styled.div`
   display: grid;
@@ -26,10 +26,12 @@ const ContentWrapper = styled.main`
 `;
 
 export default function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const handleToggleTheme = () => setIsDark(isDark ? false : true);
   const headerIcons = [
-    <ThemeToggleButton key="toggleTheme" onClick={handleToggleTheme} />,
+    <Action key="toggleTheme" type="button" onClick={handleToggleTheme}>
+      <Icon type="lightDark" title="Toggle Theme" />
+    </Action>,
     <CartButton key="openCart" />,
   ];
   const links = [
@@ -47,7 +49,6 @@ export default function App() {
             <ShopHeader
               logoText="mockCartMart"
               icons={headerIcons}
-              shoppingCart={<CartButton />}
               links={links}
             />
             <ContentWrapper>

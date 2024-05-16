@@ -25,7 +25,7 @@ export default function CartProvider({ children }) {
   const addToCart = (item) => {
     setItemsInCart((prevCart) => {
       if (!isInCart(item.id)) {
-        return [...prevCart, { ...item, quantity: item.quantity }];
+        return [...prevCart, { ...item }];
       } else {
         return prevCart.map((cartItem) =>
           cartItem.id === item.id

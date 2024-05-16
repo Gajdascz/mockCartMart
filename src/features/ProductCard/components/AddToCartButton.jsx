@@ -1,46 +1,50 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Action from '../../components/Action/Action';
+import Action from '../../../components/Action/Action';
 const AddToCartAction = styled(Action)`
   background-color: var(--surface-4-color);
-  box-shadow: var(--surface-4-shadow);
   font-weight: bold;
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
-  border-radius: var(--border-radius);
-  padding: var(--space-small);
   flex: 1;
-  &:hover,
-  &:focus {
-    border-color: 2px solid var(--color-secondary);
-    background-color: var(--color-on-secondary);
-    color: var(--color-secondary);
-    box-shadow: var(--surface-5-shadow);
-  }
+  min-width: max-content;
+  padding-top: var(--space-medium);
+  padding-bottom: var(--space-medium);
+  position: relative;
 `;
 const AddToCartSuccessButton = styled(AddToCartAction)`
   color: var(--color-success);
-  border-color: 2px solid var(--color-success);
+  border-color: var(--color-success);
   gap: var(--space-small);
-  background-color: var(--color-on-success);
+  box-shadow: var(--surface-5-shadow);
   &:hover,
   &:focus {
-    border-color: inherit;
-    background-color: inherit;
-    color: inherit;
+    border-color: var(--color-success);
+    color: var(--color-success);
   }
-`;
-const SuccessCheck = styled.span`
-  font-size: 1.25rem;
 `;
 
 const AddToCartFailedButton = styled(AddToCartSuccessButton)`
-  box-shadow: 0 0 4px 6px var(--color-on-error);
   color: var(--color-error);
-  border-color: 2px solid var(--color-error);
+  border-color: var(--color-error);
+  &:hover,
+  &:focus {
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
 `;
-const ErrorX = styled.span`
+const StatusMarker = styled.span`
   font-size: 1.25rem;
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: ${({ $isVisible }) => ($isVisible ? 'block' : 'none')};
 `;
+AddToCartButton.propTypes = {
+  addStatus: PropTypes.bool,
+  handleAddToCart: PropTypes.func,
+};
 
 export default function AddToCartButton({
   addStatus,
@@ -53,11 +57,11 @@ export default function AddToCartButton({
     </AddToCartAction>
   ) : addStatus === true ? (
     <AddToCartSuccessButton onClick={handleAddToCart} {...rest}>
-      Added To Cart <SuccessCheck>✓</SuccessCheck>
+      Added To Cart <StatusMarker $isVisible={true}>✓</StatusMarker>
     </AddToCartSuccessButton>
   ) : (
     <AddToCartFailedButton onClick={handleAddToCart} {...rest}>
-      Added To Cart Failed <ErrorX>X</ErrorX>
+      Add To Cart Failed <StatusMarker $isVisible={true}>X</StatusMarker>
     </AddToCartFailedButton>
   );
 }
