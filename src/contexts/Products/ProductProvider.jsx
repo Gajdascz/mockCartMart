@@ -11,6 +11,7 @@ export default function ProductProvider({ children }) {
     const products = localStorage.getItem('products');
     return products ? JSON.parse(products) : [];
   });
+  const [loading, setLoading] = useState(products.length === 0);
 
   const saveProducts = (productData) => {
     localStorage.setItem('products', JSON.stringify(productData));
@@ -19,6 +20,7 @@ export default function ProductProvider({ children }) {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await fetch('https://fakestoreapi.com/products');
         if (!response.ok) {
@@ -30,6 +32,8 @@ export default function ProductProvider({ children }) {
         saveProducts(data);
       } catch (error) {
         console.error(`Product Fetch error: ${error}`);
+      } finally {
+        setLoading(false);
       }
     };
     products.length === 0 && fetchProducts();
@@ -72,7 +76,7 @@ export default function ProductProvider({ children }) {
 
   return (
     <ProductContext.Provider
-      value={{ products, getSortedBy, getByCategory, searchProducts }}
+      value={{ products, loading, getSortedBy, getByCategory, searchProducts }}
     >
       {children}
     </ProductContext.Provider>

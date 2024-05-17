@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProductContext } from '../../../contexts/Products/ProductContext';
 import OptionsMenu from '../../OptionsMenu/OptionsMenu';
 import ProductCard from '../../ProductCard/ProductCard';
@@ -11,6 +11,7 @@ import {
   SORT_OPTIONS,
   SORT_SELECT_DEFAULT_TEXT,
 } from './config';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const ProductPageContainer = styled.div`
   max-width: 100vw;
@@ -70,12 +71,18 @@ const ClearButton = styled(Action)`
   border: 1px solid var(--color-primary);
 `;
 export default function ShopPage() {
-  const { products, getSortedBy, getByCategory, searchProducts } =
+  const { products, loading, getSortedBy, getByCategory, searchProducts } =
     useProductContext();
   const [currentProducts, setCurrentProducts] = useState([...products]);
   const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState('');
   const [searchInputValue, setSearchInputValue] = useState('');
+
+  useEffect(() => {
+    setCurrentProducts(products);
+  }, [products]);
+
+  if (loading) return <Spinner />;
 
   const clear = () => {
     setCurrentProducts([...products]);

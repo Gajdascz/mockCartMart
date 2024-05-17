@@ -8,7 +8,7 @@ Developed as part of [The Odin Project curriculum](https://www.theodinproject.co
 - [React Router Library](https://reactrouter.com/en/main)
 - [Styled Components Library](https://styled-components.com/)
 
-**Live Preview:** [Hosted on Cloudflare Pages]()
+**Live Preview:** [Hosted on Cloudflare Pages](https://mockcartmart.pages.dev/)
 
 ## Learning Outcomes
 

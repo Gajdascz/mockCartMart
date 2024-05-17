@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProductCard from '../ProductCard/ProductCard';
 import { useProductContext } from '../../contexts/Products/ProductContext';
 import { PRODUCT_CATEGORIES, PRODUCT_SORT_QUALITIES } from './config';
+import Spinner from '../../components/Spinner/Spinner';
 const Container = styled.div`
   background-color: var(--surface-2-color);
   color: var(--color-on-surface);
@@ -44,10 +45,12 @@ export default function FeaturedProducts({
   number = 3,
   ...rest
 }) {
-  const { products, getByCategory, getSortedBy } = useProductContext();
+  const { products, loading, getByCategory, getSortedBy } = useProductContext();
+  if (loading) return <Spinner />;
   let featured = [...products];
   if (category) featured = getByCategory(category, featured);
   if (quality) featured = getSortedBy(quality, featured);
+
   const cards = [];
   for (let i = 0; i < number; i++) {
     const prod = featured[i];
