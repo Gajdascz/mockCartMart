@@ -1,6 +1,6 @@
-import hero0 from './assets/hero-0.webp';
-import hero1 from './assets/hero-1.webp';
-import hero2 from './assets/hero-2.webp';
+import hero0 from '../../../assets/hero-0.webp';
+import hero1 from '../../../assets/hero-1.webp';
+import hero2 from '../../../assets/hero-2.webp';
 
 export const HERO_IMAGE_DISPLAYS = [
   {
