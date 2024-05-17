@@ -59,16 +59,16 @@ export default function AddToCartButton({
   ...rest
 }) {
   return addStatus === false ? (
-    <AddToCartAction onClick={handleAddToCart} {...rest}>
+    <AddToCartAction type="button" onClick={handleAddToCart} {...rest}>
       {DEFAULT_TEXT}
     </AddToCartAction>
   ) : addStatus === true ? (
-    <AddToCartSuccessButton onClick={handleAddToCart} {...rest}>
+    <AddToCartSuccessButton type="button" onClick={handleAddToCart} {...rest}>
       {SUCCESS_TEXT}
       <StatusMarker $isVisible={true}>{SUCCESS_MARKER}</StatusMarker>
     </AddToCartSuccessButton>
   ) : (
-    <AddToCartFailedButton onClick={handleAddToCart} {...rest}>
+    <AddToCartFailedButton type="button" onClick={handleAddToCart} {...rest}>
       {FAILED_TEXT}
       <StatusMarker $isVisible={true}>{FAILED_MARKER}</StatusMarker>
     </AddToCartFailedButton>

@@ -1,5 +1,5 @@
 const REMOVE_BUTTON_TEXT = `Remove`;
-const ITEM_PRICE_LABEL = `ppu:`;
+const ITEM_PRICE_LABEL = `ppu: $`;
 const QUANTITY_LABEL = `qty:`;
 const TOTAL_LABEL = `total: $`;
 

@@ -77,6 +77,7 @@ export default function QuantityInput({
   return (
     <Container {...rest}>
       <QuantityChangeButton
+        type="button"
         onClick={handleAddOne}
         aria-label={INCREASE_ARIA_LABEL}
       >
@@ -92,6 +93,7 @@ export default function QuantityInput({
         aria-label={INPUT_ARIA_LABEL}
       />
       <QuantityChangeButton
+        type="button"
         onClick={handleRemoveOne}
         aria-label={DECREASE_ARIA_LABEL}
       >

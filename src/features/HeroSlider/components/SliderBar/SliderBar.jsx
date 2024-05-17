@@ -33,11 +33,11 @@ export default function SliderBar({
 }) {
   return (
     <SliderBarContainer {...rest}>
-      <SliderNavButton onClick={onPrevSlide}>
+      <SliderNavButton type="button" onClick={onPrevSlide}>
         <Icon type="chevronLeft" />
       </SliderNavButton>
       <IndicatorsContainer>{children}</IndicatorsContainer>
-      <SliderNavButton onClick={onNextSlide}>
+      <SliderNavButton type="button" onClick={onNextSlide}>
         <Icon type="chevronRight" />
       </SliderNavButton>
     </SliderBarContainer>
